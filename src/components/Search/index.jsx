@@ -21,7 +21,7 @@ export const Search = (prop) => {
         <input
           type="text"
           onChange={handleOnChange}
-          placeholder="Search Pokémon, type, etc"
+          placeholder="Search Pokémon"
         />
         <GrSearch onClick={handleOnClick} />
       </div>

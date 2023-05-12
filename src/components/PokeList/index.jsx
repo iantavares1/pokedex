@@ -1,15 +1,22 @@
-// import React from "react";
-// // import { PokeCard } from "../PokeCard";
+import React from "react";
 
-// import "./styles.css";
+import { PokeCard } from "../PokeCard";
 
-// export const PokeList = ({ pokeData }) => {
-//   console.log(pokeData);
-//   return (
-//     <div className="PokeList">
-//       {/* {pokeData.map((pokemon) => (
-//         <PokeCard key={pokemon.id} pokemon={pokemon} />
-//       ))} */}
-//     </div>
-//   );
-// };
+import "./styles.css";
+
+export const PokeList = (props) => {
+  console.log(props.pokeData);
+
+  return (
+    <div className="PokeList">
+      {props.pokeData.map((pokemon, index) => (
+        <PokeCard
+          key={index + 1}
+          id={index + 1}
+          name={pokemon.name}
+          url={pokemon.url}
+        />
+      ))}
+    </div>
+  );
+};

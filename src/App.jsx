@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import { PokeList } from "./components/PokeCard";
+import axios from "axios";
+
+import { PokeList } from "./components/PokeList";
 import { Search } from "./components/Search";
 import { searchPokemon } from "./api/searchPokemon";
 
-function App() {
+export default function App() {
   const handleOnSearch = async (pokemon) => {
     const result = await searchPokemon(pokemon);
-    console.log("pokemon: ", result.name);
+    console.log("pokemon: ", result);
   };
 
   const [pokeData, setPokeData] = useState({});
@@ -14,18 +16,14 @@ function App() {
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
-        let url = "https://pokeapi.co/api/v2/pokemon";
-        const response = await fetch(url);
-        const data = await response.json();
+        let url = "https://pokeapi.co/api/v2/pokemon/?limit=99";
+        const response = await axios.get(url);
+        const data = response.data;
         setPokeData(data.results);
       } catch (error) {
         console.log("erro: ", error);
       }
     };
-
-    setTimeout(() => {
-      console.log(pokeData);
-    }, 2000);
 
     fetchPokemon();
   }, []);
@@ -33,9 +31,7 @@ function App() {
   return (
     <div className="App">
       <Search onSearch={handleOnSearch} />
-      <div className="container">{/* <PokeList pokeData={pokeData} /> */}</div>
+      <PokeList pokeData={pokeData} />
     </div>
   );
 }
-
-export default App;
