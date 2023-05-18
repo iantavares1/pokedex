@@ -46,3 +46,15 @@ span {
   align-items: center;
   gap: 0.3rem;
 }
+
+@media (max-height: 492px) {
+  .PokeCard {
+    zoom: 0.6;
+  }
+}
+
+@media (max-height: 348px) {
+  .PokeCard {
+    zoom: 0.55;
+  }
+}
