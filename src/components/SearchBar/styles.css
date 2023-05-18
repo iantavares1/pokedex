@@ -1,0 +1,21 @@
+input {
+  all: unset;
+
+  max-width: 35rem;
+
+  font-size: 3rem;
+  color: white;
+
+  border-radius: 1rem;
+  padding: 2rem;
+
+  &:focus,
+  &:hover {
+    outline: solid 0.2rem white;
+  }
+}
+
+input::placeholder {
+  color: white;
+  font-size: 3rem;
+}
