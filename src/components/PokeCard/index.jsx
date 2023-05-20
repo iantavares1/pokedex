@@ -61,6 +61,10 @@ export const PokeCard = ({ name, id, type }) => {
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`}
         alt={name}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+        }}
       />
       <h1>{formatString(name)}</h1>
       <p>{`#${id}`}</p>

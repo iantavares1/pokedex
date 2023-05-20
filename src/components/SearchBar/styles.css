@@ -1,21 +1,40 @@
+.SearchBar {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+}
+
 input {
   all: unset;
 
-  max-width: 35rem;
+  width: 30rem;
 
   font-size: 3rem;
   color: white;
 
-  border-radius: 1rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
 
-  &:focus,
-  &:hover {
+  transition: all 0.1s;
+
+  &:hover,
+  &:focus {
     outline: solid 0.2rem white;
   }
 }
 
 input::placeholder {
-  color: white;
   font-size: 3rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-icon {
+  color: white;
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
 }

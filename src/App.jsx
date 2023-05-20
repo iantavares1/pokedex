@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { SearchBar } from "./components/SearchBar";
 import { PokeList } from "./components/PokeList";
-// import { SearchBar } from "./components/SearchBar";
+import { PokeSearch } from "./components/PokeSearch";
 
-export default function App() {
+function App() {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (value) => {
+    setSearchValue(value);
+  };
+
   return (
     <div className="App">
-      {/* <SearchBar /> */}
-      <PokeList />
+      <SearchBar onSearch={handleSearch} />
+      {searchValue === "" && <PokeList />}
+      {searchValue !== "" && <PokeSearch searchValue={searchValue} />}
     </div>
   );
 }
+
+export default App;

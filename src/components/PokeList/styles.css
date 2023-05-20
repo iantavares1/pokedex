@@ -1,12 +1,8 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
 .PokeList {
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(4, 30rem);
-  gap: 20rem 5rem;
+  gap: 20rem 6rem;
 }
 
 @media (max-width: 1440px) {

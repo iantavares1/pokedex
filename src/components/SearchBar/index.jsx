@@ -1,53 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { fetchPokemon } from "../../api/fetchPokemon";
-import { PokeCard } from "../PokeCard";
+import React, { useRef } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
 import "./styles.css";
 
-export const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [pokeInfo, setPokeInfo] = useState("");
-  const [pokemon, setPokemon] = useState("seila");
+export const SearchBar = ({ onSearch }) => {
+  const inputRef = useRef(null);
 
-  const handleOnSearch = (e) => {
-    if (e.key === "Enter") {
-      setSearchValue(e.target.value);
+  const handleSearch = (event) => {
+    if (event.key === "Enter" || event.type === "click") {
+      const searchValue = inputRef.current.value;
+      onSearch(searchValue);
+      inputRef.current.value = "";
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchPokemon(searchValue);
-        setPokeInfo(response);
-      } catch (error) {
-        console.log("Erro ao buscar os dados:", error);
-      }
-    };
-
-    fetchData();
-  }, [searchValue]);
-
-  useEffect(() => {
-    setPokemon(
-      <PokeCard
-        key={pokeInfo.id}
-        id={pokeInfo.id}
-        name={pokeInfo.species.name}
-        type={pokeInfo.types[0].type.name}
-      />
-    );
-  }, [pokeInfo]);
-
   return (
-    <>
-      <input
-        className="SearchBar"
-        type="text"
-        placeholder="Search Pokémon"
-        onKeyDown={handleOnSearch}
-      />
-      <div>{pokemon}</div>
-    </>
+    <div className="SearchBar">
+      <div className="container">
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder="Search Pokémon"
+          onKeyDown={handleSearch}
+        />
+        <SearchIcon
+          className="search-icon"
+          sx={{ fontSize: 40 }}
+          onClick={handleSearch}
+        />
+      </div>
+    </div>
   );
 };

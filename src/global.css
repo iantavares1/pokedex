@@ -4,7 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
@@ -14,11 +15,13 @@
 
 body {
   font-size: 16px;
+  font-family: "Roboto", sans-serif;
 
   --background: #111;
-
-  padding: 10rem 0;
   background: var(--background);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 
   &::-webkit-scrollbar {
     width: 1rem;
@@ -35,7 +38,11 @@ body {
 }
 
 .App {
-  display: grid;
-  justify-content: center;
-  gap: 15rem;
+  padding: 10rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 20rem 0;
 }

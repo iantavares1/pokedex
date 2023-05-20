@@ -9,12 +9,11 @@ export const PokeList = () => {
   const [pokeInfo, setPokeInfo] = useState([]);
 
   const limit = 150;
-  const offset = 0;
 
   useEffect(() => {
     const getUrls = async () => {
       try {
-        const response = await fetchPokemon("", limit, offset);
+        const response = await fetchPokemon("", limit);
         const urls = response.results.map((pokemon) => pokemon.url);
         setPokeUrls(urls);
       } catch (error) {
@@ -23,7 +22,7 @@ export const PokeList = () => {
     };
 
     getUrls();
-  }, [offset]);
+  }, []);
 
   useEffect(() => {
     const fetchPokeInfo = async () => {
@@ -31,6 +30,7 @@ export const PokeList = () => {
         const promises = pokeUrls.map((url) =>
           fetch(url).then((response) => response.json())
         );
+
         const pokemons = await Promise.all(promises);
         setPokeInfo(pokemons);
       } catch (error) {
@@ -44,17 +44,15 @@ export const PokeList = () => {
   }, [pokeUrls]);
 
   return (
-    <div className="container">
-      <div className="PokeList">
-        {pokeInfo.map((pokemon) => (
-          <PokeCard
-            key={pokemon.id}
-            id={pokemon.id}
-            name={pokemon.species.name}
-            type={pokemon.types[0].type.name}
-          />
-        ))}
-      </div>
+    <div className="PokeList">
+      {pokeInfo.map((pokemon) => (
+        <PokeCard
+          key={pokemon.id}
+          id={pokemon.id}
+          name={pokemon.species.name}
+          type={pokemon.types[0].type.name}
+        />
+      ))}
     </div>
   );
 };
