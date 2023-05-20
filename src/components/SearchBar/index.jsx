@@ -8,7 +8,7 @@ export const SearchBar = ({ onSearch }) => {
 
   const handleSearch = (event) => {
     if (event.key === "Enter" || event.type === "click") {
-      const searchValue = inputRef.current.value;
+      const searchValue = inputRef.current.value.toLowerCase();
       onSearch(searchValue);
       inputRef.current.value = "";
     }
