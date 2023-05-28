@@ -7,7 +7,7 @@ import { formatString } from "../../utils/formatString.js";
 
 import { typeIcons } from "../../utils/typeIcons";
 
-export const PokemonDetails = ({ name, id, type, type2, stats }) => {
+export const PokeDetails = ({ name, id, type, type2, stats }) => {
   const TypeIcon = typeIcons[type];
   const TypeIcon2 = typeIcons[type2];
 
@@ -88,7 +88,9 @@ export const PokemonDetails = ({ name, id, type, type2, stats }) => {
             <div
               className="bar"
               style={{
-                background: `${type === "normal" ? "white" : typeColor}`,
+                background: `${
+                  type === "normal" || type === "dark" ? "white" : typeColor
+                }`,
                 width: `${hp}px`,
               }}
             ></div>
@@ -105,7 +107,9 @@ export const PokemonDetails = ({ name, id, type, type2, stats }) => {
             <div
               className="bar"
               style={{
-                background: `${type === "normal" ? "white" : typeColor}`,
+                background: `${
+                  type === "normal" || type === "dark" ? "white" : typeColor
+                }`,
                 width: `${attack}px`,
               }}
             ></div>
@@ -122,7 +126,9 @@ export const PokemonDetails = ({ name, id, type, type2, stats }) => {
             <div
               className="bar"
               style={{
-                background: `${type === "normal" ? "white" : typeColor}`,
+                background: `${
+                  type === "normal" || type === "dark" ? "white" : typeColor
+                }`,
                 width: `${defense}px`,
               }}
             ></div>
@@ -139,7 +145,9 @@ export const PokemonDetails = ({ name, id, type, type2, stats }) => {
             <div
               className="bar"
               style={{
-                background: `${type === "normal" ? "white" : typeColor}`,
+                background: `${
+                  type === "normal" || type === "dark" ? "white" : typeColor
+                }`,
                 width: `${spcAtk}px`,
               }}
             ></div>
@@ -156,7 +164,9 @@ export const PokemonDetails = ({ name, id, type, type2, stats }) => {
             <div
               className="bar"
               style={{
-                background: `${type === "normal" ? "white" : typeColor}`,
+                background: `${
+                  type === "normal" || type === "dark" ? "white" : typeColor
+                }`,
                 width: `${spcDef}px`,
               }}
             ></div>
@@ -173,7 +183,9 @@ export const PokemonDetails = ({ name, id, type, type2, stats }) => {
             <div
               className="bar"
               style={{
-                background: `${type === "normal" ? "white" : typeColor}`,
+                background: `${
+                  type === "normal" || type === "dark" ? "white" : typeColor
+                }`,
                 width: `${speed}px`,
               }}
             ></div>

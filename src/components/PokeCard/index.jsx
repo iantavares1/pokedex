@@ -4,7 +4,7 @@ import * as S from "./styles";
 
 import { typeIcons } from "../../utils/typeIcons";
 
-import { PokemonDetails } from "../PokemonDetails";
+import { PokeDetails } from "../PokeDetails";
 import { fetchPokemon } from "../../api/fetchPokemon";
 import { bgColors } from "../../utils/bgColors";
 import { formatString } from "../../utils/formatString.js";
@@ -90,7 +90,7 @@ export const PokeCard = ({ name, id, type }) => {
       {isOpen && (
         <>
           <S.ModalOverlay onClick={handleTogglePokemonDetails} />
-          <PokemonDetails
+          <PokeDetails
             id={id}
             name={name}
             type={type}
