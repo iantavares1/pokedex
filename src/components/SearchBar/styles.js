@@ -1,22 +1,50 @@
-import styled from "@emotion/styled";
+import { styled } from "styled-components";
 
 export const Container = styled.div`
-  border: solid 1px white;
+  width: 100%;
+  position: relative;
 
-  :hover,
-  :focus {
-    outline: solid 0.2rem white;
+  @media (min-width: 812px) {
+    width: 35rem;
   }
 
-  > input {
-    all: unset;
-    background-color: red;
-    font-size: 1rem;
-    color: white;
+  .search-icon {
+    font-size: 3.5rem;
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translateY(-50%);
 
-    padding: 1rem 2rem;
-    border-radius: 1.5rem;
+    @media (min-width: 392px) {
+      font-size: 4rem;
+    }
+  }
+`;
 
-    transition: all 0.1s;
+export const Input = styled.input`
+  width: 100%;
+
+  border: none;
+  background: none;
+
+  font-size: 2rem;
+  color: white;
+
+  padding: 1rem 2rem;
+  border-radius: 1.5rem;
+
+  transition: all 0.1s;
+
+  @media (min-width: 392px) {
+    font-size: 3rem;
+  }
+
+  &:hover,
+  &:focus {
+    outline: solid 0.3rem;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
   }
 `;

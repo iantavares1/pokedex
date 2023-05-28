@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { fetchPokemon } from "../../api/fetchPokemon";
-import { PokeCard } from "../PokeCard";
 
-import * as S from "../PokeList/styles";
+import * as S from "../styles";
 
-export const SearchedPokeList = ({ searchValue }) => {
-  const [names, setNames] = useState([]);
+import { fetchPokemon } from "../../../api/fetchPokemon";
+import { PokeCard } from "../../PokeCard";
+
+export const SearchList = ({ searchData }) => {
+  const [pokeNames, setpokeNames] = useState([]);
   const [pokeInfo, setPokeInfo] = useState(null);
 
   const limit = 900;
 
   useEffect(() => {
-    const getNames = async () => {
+    const getpokeNames = async () => {
       try {
         const response = await fetchPokemon("", limit);
         const data = response.results;
         const arr = data.map((pokemon) => pokemon.name);
-        setNames(arr);
+        setpokeNames(arr);
       } catch (error) {
         console.log("Erro ao buscar os dados:", error);
       }
     };
-    getNames();
+    getpokeNames();
   }, []);
 
   useEffect(() => {
     const getPokemonById = async () => {
-      if (!isNaN(searchValue)) {
+      if (!isNaN(searchData)) {
         try {
-          const response = await fetchPokemon(searchValue);
+          const response = await fetchPokemon(searchData);
           const data = response;
           setPokeInfo([data]);
         } catch (error) {
@@ -38,16 +39,16 @@ export const SearchedPokeList = ({ searchValue }) => {
     };
 
     getPokemonById();
-  }, [searchValue]);
+  }, [searchData]);
 
   useEffect(() => {
     const getPokemons = async () => {
       try {
-        if (!isNaN(searchValue)) {
+        if (!isNaN(searchData)) {
           return;
         }
-        const matchingPokemons = names.filter((name) =>
-          name.toLowerCase().startsWith(searchValue.toLowerCase())
+        const matchingPokemons = pokeNames.filter((name) =>
+          name.toLowerCase().startsWith(searchData.toLowerCase())
         );
         const promises = matchingPokemons.map((name) => fetchPokemon(name));
         const responses = await Promise.all(promises);
@@ -55,12 +56,8 @@ export const SearchedPokeList = ({ searchValue }) => {
         setPokeInfo(data);
 
         data.sort((a, b) => {
-          const aIndex = a.name
-            .toLowerCase()
-            .indexOf(searchValue.toLowerCase());
-          const bIndex = b.name
-            .toLowerCase()
-            .indexOf(searchValue.toLowerCase());
+          const aIndex = a.name.toLowerCase().indexOf(searchData.toLowerCase());
+          const bIndex = b.name.toLowerCase().indexOf(searchData.toLowerCase());
 
           if (aIndex === bIndex) {
             return a.name.localeCompare(b.name);
@@ -76,7 +73,7 @@ export const SearchedPokeList = ({ searchValue }) => {
     };
 
     getPokemons();
-  }, [names, searchValue]);
+  }, [pokeNames, searchData]);
 
   if (!pokeInfo) {
     return (

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 
 import * as S from "./styles.js";
+import SearchIcon from "@mui/icons-material/Search";
 
 export const SearchBar = ({ onSearch }) => {
   const inputRef = useRef(null);
@@ -20,18 +20,14 @@ export const SearchBar = ({ onSearch }) => {
 
   return (
     <S.Container>
-      <input
+      <S.Input
         ref={inputRef}
         type="text"
         placeholder="Search Pokémon"
         onChange={handleSearch}
         onKeyDown={handleClearInput}
       />
-      <SearchIcon
-        className="search-icon"
-        sx={{ fontSize: 40 }}
-        onClick={handleClearInput}
-      />
+      <SearchIcon className="search-icon" onClick={handleClearInput} />
     </S.Container>
   );
 };

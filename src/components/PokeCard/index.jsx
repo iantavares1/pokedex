@@ -2,58 +2,28 @@ import React, { useEffect, useState } from "react";
 
 import * as S from "./styles";
 
-import { BsFillHexagonFill } from "react-icons/bs";
-import { IoWaterSharp } from "react-icons/io5";
-import { AiOutlineEye, AiFillBug } from "react-icons/ai";
-import { TbSkull } from "react-icons/tb";
-import { RiMagicFill } from "react-icons/ri";
-import {
-  FaRegCircle,
-  FaFire,
-  FaBolt,
-  FaEnvira,
-  FaDragon,
-  FaSnowflake,
-} from "react-icons/fa";
-
-import {
-  GiGhost,
-  GiLibertyWing,
-  GiStonePile,
-  GiSkullCrossedBones,
-  GiSwordClash,
-  GiPunchBlast,
-} from "react-icons/gi";
+import { typeIcons } from "../../utils/typeIcons";
 
 import { PokemonDetails } from "../PokemonDetails";
 import { fetchPokemon } from "../../api/fetchPokemon";
 import { bgColors } from "../../utils/bgColors";
 import { formatString } from "../../utils/formatString.js";
 
-const typeIcons = {
-  normal: FaRegCircle,
-  fire: FaFire,
-  water: IoWaterSharp,
-  electric: FaBolt,
-  grass: FaEnvira,
-  ice: FaSnowflake,
-  fighting: GiPunchBlast,
-  poison: TbSkull,
-  ground: GiStonePile,
-  flying: GiLibertyWing,
-  psychic: AiOutlineEye,
-  bug: AiFillBug,
-  rock: BsFillHexagonFill,
-  ghost: GiGhost,
-  dragon: FaDragon,
-  dark: GiSkullCrossedBones,
-  steel: GiSwordClash,
-  fairy: RiMagicFill,
-};
-
 export const PokeCard = ({ name, id, type }) => {
+  const cardStyle = {
+    background: bgColors[type],
+  };
+
+  const TypeIcon = typeIcons[type];
+
   const [type2, setType2] = useState("");
   const [stats, setStats] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleTogglePokemonDetails = () => {
+    setIsOpen(!isOpen);
+    document.body.classList.toggle("modal-open");
+  };
 
   useEffect(() => {
     const getType2 = async () => {
@@ -96,20 +66,6 @@ export const PokeCard = ({ name, id, type }) => {
 
     getStats();
   });
-
-  const cardStyle = {
-    background: bgColors[type],
-  };
-
-  const TypeIcon = typeIcons[type];
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleTogglePokemonDetails = () => {
-    setIsOpen(!isOpen);
-  };
-
-  document.body.classList.toggle("modal-open", isOpen);
 
   return (
     <S.Container style={cardStyle} onClick={handleTogglePokemonDetails}>

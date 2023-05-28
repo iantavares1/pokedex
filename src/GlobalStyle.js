@@ -18,6 +18,7 @@ export default createGlobalStyle`
     font-size: 16px;
     font-family: "Roboto", sans-serif;
 
+
     --background: #111;
     background: var(--background);
     
@@ -36,30 +37,9 @@ export default createGlobalStyle`
       background-color: rgba(255, 255, 255, 0.3);
       border-radius: 0.5rem;
     }
-  }
 
-  .App{
-    width: 90vw;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    color: white;
-
-    > header{
-      padding-top: 4rem;
-
-      width: 100%;
-    }
-
-    > main{
-      padding-top: 5rem;
-      width: 100%;
-
-      display: flex;
-      justify-content: center;
-      border: solid 1px red;
+    &.modal-open{
+      overflow: hidden;
     }
   }
 `;

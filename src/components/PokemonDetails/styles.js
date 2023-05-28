@@ -1,53 +1,62 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-  width: 90vw;
+  position: relative;
+
+  width: 100vw;
   height: 90vh;
 
-  padding: 3rem 0 0;
+  padding: 3rem 0;
 
   position: fixed;
-  z-index: 996;
+  z-index: 999;
 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-  background: rgba(0, 0, 0, 0.7);
-
-  border-radius: 3rem;
-  box-shadow: 0.5rem 0.6rem 0.5rem 0rem rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 
-  .close-button {
-    border: solid 1px red;
+  &::before,
+  &::after {
+    content: "";
     position: absolute;
+    width: 100%;
+    height: 0.6rem;
+    background: ${({ background }) => background};
+  }
 
+  &::before {
     top: 0;
-    right: 0;
+  }
+
+  &::after {
+    bottom: 0;
   }
 `;
 
 export const Main = styled.div`
   width: 100%;
-  height: 30rem;
   position: relative;
 
-  padding-top: 16.5rem;
+  padding-top: 17rem;
 
   cursor: pointer;
 
   .img-wrapper {
     position: absolute;
 
-    top: -5rem;
+    top: -7rem;
     left: 50%;
     transform: translateX(-50%);
 
-    width: 22rem;
-    height: 22rem;
+    width: 23rem;
+    height: 24rem;
 
     pointer-events: none;
 
@@ -63,14 +72,14 @@ export const Info = styled.div`
 
   display: grid;
   place-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
 
   .name {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 
   .id {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
   }
   .type {
@@ -78,10 +87,10 @@ export const Info = styled.div`
     gap: 1rem;
 
     span {
-      padding: 0.8rem 1rem;
+      padding: 0.6rem 0.8rem;
       margin-top: 0.2rem;
 
-      font-size: 1.5rem;
+      font-size: 1rem;
       font-weight: 600;
 
       border-radius: 1.5rem;
@@ -95,13 +104,13 @@ export const Info = styled.div`
 `;
 
 export const Details = styled.div`
-  padding: 2rem;
+  padding: 0 1rem 1rem;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  width: 100%;
+  width: 90%;
   height: 100%;
 
   .wrapper {
@@ -110,6 +119,7 @@ export const Details = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.3rem;
   }
 `;
 
@@ -123,7 +133,7 @@ export const Stats = styled.div`
   }
 
   .value {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
   }
 `;
@@ -132,7 +142,7 @@ export const Bar = styled.div`
   width: 100%;
   position: relative;
 
-  height: 1.5rem;
+  height: 1rem;
 
   border-radius: 1rem;
   overflow: hidden;

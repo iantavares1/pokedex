@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { fetchPokemon } from "../../api/fetchPokemon";
-import { PokeCard } from "../PokeCard";
+import { fetchPokemon } from "../../../api/fetchPokemon";
+import { PokeCard } from "../../PokeCard";
 
-import * as S from "./styles.js";
+import * as S from "../styles.js";
 
-export const PokeList = () => {
+export const HomeList = () => {
   const [pokeUrls, setPokeUrls] = useState([]);
   const [pokeInfo, setPokeInfo] = useState([]);
 
