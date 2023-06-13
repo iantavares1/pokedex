@@ -1,50 +1,28 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components'
 
 export const Container = styled.div`
-  width: 100%;
-  position: relative;
+  border-radius: 1.3rem;
+  padding-left: 0.7rem;
 
-  @media (min-width: 812px) {
-    width: 35rem;
+  display: flex;
+  gap: 1rem;
+
+  &:hover {
+    outline: 0.2rem solid ${({ theme }) => theme.text.primary};
   }
 
-  .search-icon {
-    font-size: 3.5rem;
-    position: absolute;
-    top: 50%;
-    right: 3%;
-    transform: translateY(-50%);
+  > input {
+    all: unset;
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.text.primary};
 
-    @media (min-width: 392px) {
-      font-size: 4rem;
+    &::placeholder {
+      color: ${({ theme }) => theme.text.primary};
+      opacity: 0.75;
     }
   }
-`;
+`
 
-export const Input = styled.input`
-  width: 100%;
-
-  border: none;
-  background: none;
-
-  font-size: 2rem;
-  color: white;
-
-  padding: 1rem 2rem;
-  border-radius: 1.5rem;
-
-  transition: all 0.1s;
-
-  @media (min-width: 392px) {
-    font-size: 3rem;
-  }
-
-  &:hover,
-  &:focus {
-    outline: solid 0.3rem;
-  }
-
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-  }
-`;
+export const Button = styled.button`
+  all: unset;
+`

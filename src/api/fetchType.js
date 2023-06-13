@@ -1,12 +1,10 @@
-import axios from "axios";
-
 export const fetchType = async (type) => {
   try {
-    let url = `https://pokeapi.co/api/v2/type/${type.toLowerCase()}`;
-    const response = await axios.get(url);
-    const data = response.data;
-    return data;
+    const url = `https://pokeapi.co/api/v2/type/${type.toLowerCase()}`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.pokemon
   } catch (error) {
-    console.log("Error: ", error);
+    console.log('Error: ', error)
   }
-};
+}

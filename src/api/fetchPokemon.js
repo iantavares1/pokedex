@@ -1,12 +1,10 @@
-import axios from "axios";
-
 export const fetchPokemon = async (pokemon, limit, offset) => {
   try {
-    let url = `https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}?limit=${limit}&offset=${offset}`;
-    const response = await axios.get(url);
-    const data = response.data;
-    return data;
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}?limit=${limit}&offset=${offset}`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data
   } catch (error) {
-    console.log("Error: ", error);
+    console.log('Error: ', error)
   }
-};
+}

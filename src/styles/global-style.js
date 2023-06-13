@@ -1,6 +1,11 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
+  :root {
+    font-size: 62.5%;
+    user-select: none;
+  }
+  
   * {
     margin: 0;
     padding: 0;
@@ -9,18 +14,13 @@ export default createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
-  :root {
-    font-size: 62.5%;
-    user-select: none;
-  }
-
   body {
     font-size: 16px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", sans-serif;
 
+    height: 100vh;
 
-    --background: #111;
-    background: var(--background);
+    background: ${({ theme }) => theme.bg.primary};
     
     display: flex;
     justify-content: center;
@@ -30,16 +30,12 @@ export default createGlobalStyle`
     }
 
     &::-webkit-scrollbar-track {
-      background: var(--background);
+      background: ${({ theme }) => theme.bg.primary};
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.3);
       border-radius: 0.5rem;
     }
-
-    &.modal-open{
-      overflow: hidden;
-    }
   }
-`;
+`

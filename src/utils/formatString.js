@@ -1,7 +1,11 @@
 export const formatString = (str) => {
-  const newStr = `${str[0].toUpperCase()}${str.substring(1)}`;
-  if (newStr.includes("-")) {
-    return newStr.replace("-", " ");
+  let newStr = `${str[0].toUpperCase()}${str.substring(1)}`
+  if (newStr.includes('-')) {
+    const hyphenIndex = newStr.indexOf('-')
+    newStr = newStr.replace('-', ' ')
+    newStr = `${newStr.slice(0, hyphenIndex + 1)}${newStr
+      .slice(hyphenIndex + 1, hyphenIndex + 2)
+      .toUpperCase()}${newStr.slice(hyphenIndex + 2, newStr.length)}`
   }
-  return newStr;
-};
+  return newStr
+}

@@ -1,66 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react'
 
-import * as A from "./App.styles";
+import * as S from './styles/App.styles'
 
-import HomeIcon from "@mui/icons-material/Home";
-import GitHubIcon from "@mui/icons-material/GitHub";
-
-import { Slider } from "./components/Slider";
-import { SearchBar } from "./components/SearchBar";
-
-import { HomeList } from "./components/PokeLists/HomeList";
-import { SearchList } from "./components/PokeLists/SearchList";
-import { TypeList } from "./components/PokeLists/TypeList";
+import { Slider } from './components/Slider'
+import { SearchBar } from './components/SearchBar'
+import { Divider } from './components/common/Divider'
+import { PokeList } from './components/PokeList'
+import { HeartIcon } from './components/common/HeartIcon'
 
 function App() {
-  const [isHome, setIsHome] = useState(true);
-  const [searchData, setSearchData] = useState("");
-  const [typeData, setTypeData] = useState("");
+  const [home, setHome] = useState(1)
+  const [type, setType] = useState('')
+  const [search, setSearch] = useState('')
 
   const handleHomeList = (bool = true) => {
-    setIsHome(bool);
-    if ((bool = true)) {
-      setSearchData("");
-      setTypeData("");
+    setHome(bool)
+    if (bool) {
+      setSearch('')
+      setType('')
     }
-  };
+  }
 
-  const handleSearchList = (value) => {
-    setSearchData(value);
-    if (value !== "") {
-      setIsHome(false);
-      setTypeData("");
+  const handleSearchList = (str) => {
+    setSearch(str)
+    if (str !== '') {
+      setHome(false)
+      setType('')
+    } else {
+      handleHomeList(true)
     }
-  };
+  }
 
-  const handleTypeList = (value) => {
-    setTypeData(value);
-    if (value !== "") {
-      setIsHome(false);
-      setSearchData("");
+  const handleTypeList = (str) => {
+    setType(str)
+    if (str !== '') {
+      setHome(false)
+      setSearch('')
     }
-  };
+  }
 
   return (
-    <A.Container>
-      <header>
-        <A.Wrapper>
-          <a href="https://github.com/iantavares1/pokedex">
-            <GitHubIcon />
-          </a>
-          <HomeIcon onClick={handleHomeList} />
-        </A.Wrapper>
-
-        <Slider onChoice={handleTypeList} />
-        <SearchBar onSearch={handleSearchList} />
-      </header>
-      <main>
-        {isHome && <HomeList />}
-        {searchData !== "" && <SearchList searchData={searchData} />}
-        {typeData !== "" && <TypeList typeData={typeData} />}
-      </main>
-    </A.Container>
-  );
+    <S.Container>
+      <S.Header onClick={handleHomeList}>
+        <h1>Pokédex</h1>
+        <button>
+          <HeartIcon />
+        </button>
+      </S.Header>
+      <Slider onChoice={handleTypeList} />
+      <SearchBar onChange={handleSearchList} />
+      <Divider />
+      {home && <PokeList home={home} />}
+      {type !== '' && <PokeList type={type} />}
+      {search !== '' && <PokeList search={search} />}
+    </S.Container>
+  )
 }
 
-export default App;
+export default App

@@ -1,33 +1,42 @@
-import React, { useRef } from "react";
+import * as S from './styles'
+import { SearchIcon } from '../common/SearchIcon'
+import { ClearIcon } from '../common/ClearIcon'
+import { useState, useRef } from 'react'
 
-import * as S from "./styles.js";
-import SearchIcon from "@mui/icons-material/Search";
+export const SearchBar = ({ onChange = '' }) => {
+  const inputRef = useRef(null)
+  const [inputValue, setInputValue] = useState('')
 
-export const SearchBar = ({ onSearch }) => {
-  const inputRef = useRef(null);
+  const handleInputValue = (e) => {
+    const value = e.target.value
+    onChange(value)
+    setInputValue(value)
+  }
 
-  const handleSearch = () => {
-    const searchValue = inputRef.current.value.toLowerCase();
-    onSearch(searchValue);
-  };
-
-  const handleClearInput = (e) => {
-    if (e.key === "Enter" || e.type === "click") {
-      inputRef.current.value = "";
-      inputRef.current.focus();
-    }
-  };
+  const handleClearInput = () => {
+    inputRef.current.value = ''
+    inputRef.current.focus()
+    onChange('')
+    setInputValue('')
+  }
 
   return (
     <S.Container>
-      <S.Input
+      {inputValue === '' ? (
+        <SearchIcon />
+      ) : (
+        <S.Button onClick={handleClearInput}>
+          <ClearIcon />
+        </S.Button>
+      )}
+
+      <input
         ref={inputRef}
         type="text"
         placeholder="Search Pokémon"
-        onChange={handleSearch}
-        onKeyDown={handleClearInput}
+        value={inputValue}
+        onChange={handleInputValue}
       />
-      <SearchIcon className="search-icon" onClick={handleClearInput} />
     </S.Container>
-  );
-};
+  )
+}

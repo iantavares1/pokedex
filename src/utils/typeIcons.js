@@ -1,8 +1,8 @@
-import { BsFillHexagonFill } from "react-icons/bs";
-import { IoWaterSharp } from "react-icons/io5";
-import { AiOutlineEye, AiFillBug } from "react-icons/ai";
-import { TbSkull } from "react-icons/tb";
-import { RiMagicFill } from "react-icons/ri";
+import { BsFillHexagonFill } from 'react-icons/bs'
+import { IoWaterSharp } from 'react-icons/io5'
+import { AiOutlineEye, AiFillBug } from 'react-icons/ai'
+import { TbSkull } from 'react-icons/tb'
+import { RiMagicFill } from 'react-icons/ri'
 import {
   FaRegCircle,
   FaFire,
@@ -10,7 +10,7 @@ import {
   FaEnvira,
   FaDragon,
   FaSnowflake,
-} from "react-icons/fa";
+} from 'react-icons/fa'
 
 import {
   GiGhost,
@@ -19,7 +19,7 @@ import {
   GiSkullCrossedBones,
   GiSwordClash,
   GiPunchBlast,
-} from "react-icons/gi";
+} from 'react-icons/gi'
 
 export const typeIcons = {
   normal: FaRegCircle,
@@ -40,4 +40,4 @@ export const typeIcons = {
   dark: GiSkullCrossedBones,
   steel: GiSwordClash,
   fairy: RiMagicFill,
-};
+}
