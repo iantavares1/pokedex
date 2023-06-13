@@ -4,7 +4,7 @@
 
 ## Deploy
 
-https://iantavares1.github.io/pokedex
+https://pokedex-b4s89q9z3-iantavares1.vercel.app/
 
 ## Ferramentas
 
