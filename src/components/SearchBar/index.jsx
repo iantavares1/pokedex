@@ -9,7 +9,7 @@ export const SearchBar = ({ onChange = '' }) => {
 
   const handleInputValue = (e) => {
     const value = e.target.value
-    onChange(value)
+    onChange(value.toLowerCase())
     setInputValue(value)
   }
 
