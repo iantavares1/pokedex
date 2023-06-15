@@ -1,10 +1,11 @@
-import { styled } from 'styled-components'
+import { styled, useTheme } from 'styled-components'
 
 const Container = styled.div`
   display: flex;
 `
 
 export const SearchIcon = () => {
+  const theme = useTheme()
   return (
     <Container>
       <svg
@@ -16,7 +17,7 @@ export const SearchIcon = () => {
       >
         <path
           d="M25.7006 23.0494L20.9409 18.2897C21.9244 16.8075 22.5 15.0328 22.5 13.125C22.5 7.95563 18.2944 3.75 13.125 3.75C7.95563 3.75 3.75 7.95563 3.75 13.125C3.75 18.2944 7.95563 22.5 13.125 22.5C15.0328 22.5 16.8075 21.9244 18.2897 20.9409L23.0494 25.7006C23.7806 26.4328 24.9694 26.4328 25.7006 25.7006C26.4328 24.9684 26.4328 23.7816 25.7006 23.0494ZM6.5625 13.125C6.5625 9.50625 9.50625 6.5625 13.125 6.5625C16.7437 6.5625 19.6875 9.50625 19.6875 13.125C19.6875 16.7437 16.7437 19.6875 13.125 19.6875C9.50625 19.6875 6.5625 16.7437 6.5625 13.125Z"
-          fill="#E8E8E8"
+          fill={theme.text.primary}
         />
       </svg>
     </Container>

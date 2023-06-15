@@ -13,6 +13,6 @@ export const TypeButton = styled.button`
   cursor: pointer;
 
   > span {
-    color: ${({ theme }) => theme.text.primary};
+    color: white;
   }
 `

@@ -21,7 +21,7 @@ export const PokeCard = ({ name, id, type, type2, imgUrl, imgUrl2 }) => {
     <>
       <S.Wrapper onClick={handlePokeInfo}>
         <S.Img src={imgUrl || imgUrl2} />
-        <S.Container style={{ background: bgColors[type] }}>
+        <S.Container bg={bgColors[type]}>
           <TypeIcon />
           <S.Name>{formatString(name)}</S.Name>
           <S.InfoWrapper>

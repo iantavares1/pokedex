@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
 
+import { ThemeProvider } from 'styled-components'
+import GlobalStyle from './styles/global-style.js'
+
+import dark from './styles/themes/dark'
+import light from './styles/themes/light'
+
 import * as S from './styles/App.styles'
 
 import { Slider } from './components/Slider'
@@ -7,11 +13,15 @@ import { SearchBar } from './components/SearchBar'
 import { Divider } from './components/common/Divider'
 import { PokeList } from './components/PokeList'
 import { HeartIcon } from './components/common/HeartIcon'
+import { Switch } from './components/common/Switch.jsx'
 
 function App() {
+  const [theme, setTheme] = useState(dark)
   const [home, setHome] = useState(1)
   const [type, setType] = useState('')
   const [search, setSearch] = useState('')
+
+  const switchTheme = () => setTheme(theme === dark ? light : dark)
 
   const handleHomeList = (bool = true) => {
     setHome(bool)
@@ -40,20 +50,28 @@ function App() {
   }
 
   return (
-    <S.Container>
-      <S.Header onClick={handleHomeList}>
-        <h1>Pokédex</h1>
-        <button>
-          <HeartIcon />
-        </button>
-      </S.Header>
-      <Slider onChoice={handleTypeList} />
-      <SearchBar onChange={handleSearchList} />
-      <Divider />
-      {home && <PokeList home={home} />}
-      {type !== '' && <PokeList type={type} />}
-      {search !== '' && <PokeList search={search} />}
-    </S.Container>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <S.Container>
+        <S.Header onClick={handleHomeList}>
+          <h1>Pokédex</h1>
+          <span>
+            <button>
+              <HeartIcon />
+            </button>
+            <button onClick={switchTheme}>
+              <Switch currentTheme={theme} />
+            </button>
+          </span>
+        </S.Header>
+        <Slider onChoice={handleTypeList} />
+        <SearchBar onChange={handleSearchList} />
+        <Divider />
+        {home && <PokeList home={home} />}
+        {type !== '' && <PokeList type={type} />}
+        {search !== '' && <PokeList search={search} />}
+      </S.Container>
+    </ThemeProvider>
   )
 }
 

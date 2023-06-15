@@ -3,15 +3,12 @@ import { createGlobalStyle } from 'styled-components'
 export default createGlobalStyle`
   :root {
     font-size: 62.5%;
-    user-select: none;
   }
   
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   body {

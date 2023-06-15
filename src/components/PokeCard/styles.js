@@ -13,8 +13,10 @@ export const Container = styled.div`
   width: 100%;
   height: 110px;
 
+  background: ${({ bg }) => bg};
   border-radius: 1.3rem;
-  color: ${({ theme }) => theme.text.primary};
+  color: white;
+  box-shadow: 10px 10px 7px -7px rgba(0, 0, 0, 0.52);
 
   display: flex;
   flex-direction: column;

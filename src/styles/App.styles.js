@@ -20,8 +20,14 @@ export const Header = styled.div`
     font-size: 36px;
   }
 
-  > button {
-    all: unset;
-    margin-top: 0.5rem;
+  > span {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    button {
+      all: unset;
+      margin-top: 0.5rem;
+    }
   }
 `

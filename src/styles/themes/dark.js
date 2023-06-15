@@ -2,10 +2,11 @@ export default {
   title: 'dark',
 
   bg: {
-    primary: '#000',
+    primary: '#222',
   },
 
   text: {
     primary: '#fff',
+    secondary: '#000',
   },
 }
