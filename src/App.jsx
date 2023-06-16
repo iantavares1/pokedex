@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from './styles/global-style.js'
@@ -21,7 +21,20 @@ function App() {
   const [type, setType] = useState('')
   const [search, setSearch] = useState('')
 
-  const switchTheme = () => setTheme(theme === dark ? light : dark)
+  const loadTheme = () => {
+    const loadedTheme = JSON.parse(window.localStorage.getItem('theme'))
+    loadedTheme ? setTheme(loadedTheme) : setTheme(dark)
+  }
+
+  useEffect(() => {
+    loadTheme()
+  }, [])
+
+  const switchTheme = () => {
+    const newTheme = theme === dark ? light : dark
+    setTheme(newTheme)
+    window.localStorage.setItem('theme', JSON.stringify(newTheme))
+  }
 
   const handleHomeList = (bool = true) => {
     setHome(bool)
