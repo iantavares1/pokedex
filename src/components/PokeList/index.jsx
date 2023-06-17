@@ -27,7 +27,7 @@ export const PokeList = ({ home, type, search }) => {
         const names = response.results.map((pokemon) => pokemon.name)
         setNamesArr(names)
       } catch (error) {
-        console.log(`erro: ${error}`)
+        console.log(`Erro: ${error}`)
       }
     }
     getNames()
@@ -38,9 +38,10 @@ export const PokeList = ({ home, type, search }) => {
       const getData = async () => {
         try {
           const response = await fetchPokemon('', 150)
+
           setAllPokemons(response.results)
         } catch (error) {
-          console.log(`erro: ${error}`)
+          console.log(`Erro: ${error}`)
         }
       }
       getData()
@@ -51,7 +52,7 @@ export const PokeList = ({ home, type, search }) => {
           const data = response.map((obj) => obj.pokemon)
           setAllPokemons(data)
         } catch (error) {
-          console.log(`erro: ${error}`)
+          console.log(`Erro: ${error}`)
         }
       }
       getData()
@@ -63,7 +64,7 @@ export const PokeList = ({ home, type, search }) => {
           const pokemons = await Promise.all(promises)
           setPokeData(pokemons)
         } catch (error) {
-          console.log(`erro: ${error}`)
+          console.log(`Erro: ${error}`)
         }
       }
       getData()
@@ -72,10 +73,8 @@ export const PokeList = ({ home, type, search }) => {
 
   useEffect(() => {
     const getPokeData = async () => {
-      const urls = allPokemons.map((pokemon) => pokemon.url)
-      const promises = urls.map((url) =>
-        fetch(url).then((response) => response.json()),
-      )
+      const names = allPokemons.map((pokemon) => pokemon.name)
+      const promises = names.map((name) => fetchPokemon(name))
       const pokemons = await Promise.all(promises)
       setPokeData(pokemons)
     }
@@ -85,21 +84,20 @@ export const PokeList = ({ home, type, search }) => {
 
   return (
     <S.Container>
-      {pokeData &&
-        pokeData.map(
-          (pokemon) =>
-            pokemon.id < 1000 && (
-              <PokeCard
-                key={pokemon.id}
-                id={pokemon.id}
-                name={pokemon.species.name}
-                type={pokemon.types[0].type.name}
-                type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
-                imgUrl={pokemon.sprites.other.home.front_default}
-                imgUrl2={pokemon.sprites.front_default}
-              />
-            ),
-        )}
+      {pokeData.map(
+        (pokemon) =>
+          pokemon.id < 1000 && (
+            <PokeCard
+              key={pokemon.id}
+              id={pokemon.id}
+              name={pokemon.species.name}
+              type={pokemon.types[0].type.name}
+              type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
+              imgUrl={pokemon.sprites.other.home.front_default}
+              imgUrl2={pokemon.sprites.front_default}
+            />
+          ),
+      )}
     </S.Container>
   )
 }

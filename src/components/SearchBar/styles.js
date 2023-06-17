@@ -6,6 +6,7 @@ export const Container = styled.div`
 
   display: flex;
   gap: 1rem;
+  transition: all 0.1s;
 
   &:hover {
     outline: 0.2rem solid ${({ theme }) => theme.text.primary};

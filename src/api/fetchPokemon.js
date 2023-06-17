@@ -5,6 +5,6 @@ export const fetchPokemon = async (pokemon, limit, offset) => {
     const data = await response.json()
     return data
   } catch (error) {
-    console.log('Error: ', error)
+    console.log(`Erro: ${error}`)
   }
 }

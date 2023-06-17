@@ -27,7 +27,7 @@ export const PokeCard = ({ name, id, type, type2, imgUrl, imgUrl2 }) => {
           <S.InfoWrapper>
             <S.Id>{formatId(id)}</S.Id>
             <S.Types>
-              <span>{formatString(type)}</span>
+              <span className="type-name">{formatString(type)}</span>
               {type2 && <span>{formatString(type2)}</span>}
             </S.Types>
           </S.InfoWrapper>

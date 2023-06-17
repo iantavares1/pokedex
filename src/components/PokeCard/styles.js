@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 export const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 110px;
+  height: 11rem;
 `
 
 export const Container = styled.div`
@@ -11,12 +11,12 @@ export const Container = styled.div`
 
   padding-top: 5.3rem;
   width: 100%;
-  height: 110px;
+  height: 100%;
 
   background: ${({ bg }) => bg};
   border-radius: 1.3rem;
   color: white;
-  box-shadow: 10px 10px 7px -7px rgba(0, 0, 0, 0.52);
+  box-shadow: 1rem 1rem 0.7rem -0.7rem rgba(0, 0, 0, 0.52);
 
   display: flex;
   flex-direction: column;
@@ -29,15 +29,15 @@ export const Container = styled.div`
     position: absolute;
     top: -2rem;
     right: -1rem;
-    width: 140px;
-    height: 140px;
+    width: 14rem;
+    height: 14rem;
     opacity: 0.1;
   }
 `
 
 export const Img = styled.img`
-  width: 90px;
-  height: 90px;
+  width: 9rem;
+  height: 9rem;
   position: absolute;
   z-index: 2;
   top: -3.5rem;
@@ -46,7 +46,7 @@ export const Img = styled.img`
 `
 
 export const Name = styled.h1`
-  font-size: 16px;
+  font-size: 1.6rem;
 `
 
 export const InfoWrapper = styled.span`
@@ -58,7 +58,7 @@ export const InfoWrapper = styled.span`
 `
 
 export const Id = styled.h2`
-  font-size: 8px;
+  font-size: 0.8rem;
 `
 
 export const Types = styled.div`
@@ -67,10 +67,10 @@ export const Types = styled.div`
 
   > span {
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 13px;
+    border-radius: 1.3rem;
 
     padding: 0.3rem 0.5rem;
-    font-size: 8px;
+    font-size: 0.8rem;
 
     display: flex;
     justify-content: center;

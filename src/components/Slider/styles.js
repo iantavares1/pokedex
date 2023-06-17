@@ -2,14 +2,14 @@ import { styled } from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
   overflow: scroll;
 `
 
 export const TypeButton = styled.button`
   all: unset;
-  padding: 2px 15px;
-  border-radius: 13px;
+  padding: 0.2rem 1.5rem;
+  border-radius: 1.3rem;
   cursor: pointer;
 
   > span {

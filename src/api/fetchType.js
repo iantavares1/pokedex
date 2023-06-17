@@ -5,6 +5,6 @@ export const fetchType = async (type) => {
     const data = await response.json()
     return data.pokemon
   } catch (error) {
-    console.log('Error: ', error)
+    console.log(`Erro: ${error}`)
   }
 }

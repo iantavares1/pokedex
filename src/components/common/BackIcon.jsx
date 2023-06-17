@@ -1,10 +1,11 @@
-import { styled } from 'styled-components'
+import { styled, useTheme } from 'styled-components'
 
 const Container = styled.div`
   display: flex;
 `
 
-export const BackIcon = () => {
+export const BackIcon = ({ fill }) => {
+  const theme = useTheme()
   return (
     <Container>
       <svg
@@ -18,7 +19,7 @@ export const BackIcon = () => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M22 9.625H5.225L12.925 1.925L11 0L0 11L11 22L12.925 20.075L5.225 12.375H22V9.625Z"
-          fill="white"
+          fill={fill || theme.text.primary}
         />
       </svg>
     </Container>
