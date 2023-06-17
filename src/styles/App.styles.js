@@ -17,17 +17,16 @@ export const Header = styled.div`
   align-items: center;
 
   h1 {
-    font-size: 36px;
+    font-size: 3.6rem;
+  }
+
+  button {
+    all: unset;
   }
 
   > span {
     display: flex;
     align-items: center;
     gap: 2rem;
-
-    button {
-      all: unset;
-      margin-top: 0.5rem;
-    }
   }
 `
