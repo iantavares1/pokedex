@@ -10,6 +10,7 @@ export default {
     primary: '#000',
     secondary: '#fff',
   },
+
   scrollbar: {
     primary: 'rgba(0,0,0,0.3)',
   },

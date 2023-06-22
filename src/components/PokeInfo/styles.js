@@ -10,6 +10,19 @@ export const Container = styled.div`
   background: ${({ bg }) => bg};
   animation: get-in 0.2s linear;
 
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.scrollbar.primary};
+    border-radius: 0.5rem;
+  }
+
   .top-buttons {
     margin: 2rem;
     display: flex;
@@ -41,6 +54,7 @@ export const Container = styled.div`
 export const Button = styled.button`
   all: unset;
   display: flex;
+  cursor: pointer;
 `
 
 export const Main = styled.div`
@@ -82,6 +96,17 @@ export const Img = styled.img`
   bottom: -2rem;
   left: 50%;
   transform: translateX(-50%);
+  pointer-events: none;
+`
+
+export const Img2 = styled.img`
+  position: absolute;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7rem;
+  height: 7rem;
+  pointer-events: none;
 `
 
 export const Type = styled.div`
@@ -94,23 +119,22 @@ export const Type = styled.div`
   align-items: center;
   font-size: 1.4rem;
 `
-
 export const DetailsWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 3rem;
+  width: 100vw;
+  height: calc(100% - 45vh);
+  padding: 2rem 3rem 3rem;
 
   background: ${({ theme }) => theme.bg.primary};
   color: ${({ theme }) => theme.text.primary};
 
   display: flex;
   flex-direction: column;
-  border-radius: 3rem;
+  border-top-right-radius: 3rem;
+  border-top-left-radius: 3rem;
 
   .buttons {
-    border: solid 0.1rem red;
-
     display: flex;
+    justify-content: space-between;
 
     .button-wrapper {
       position: relative;
@@ -132,6 +156,56 @@ export const DetailsWrapper = styled.div`
       }
     }
   }
+
+  .about {
+    .description {
+      font-size: 1.2rem;
+      line-height: 140%;
+    }
+  }
+
+  .stats {
+    .stat {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      line-height: 140%;
+
+      .stat-wrapper {
+        display: flex;
+        align-items: center;
+
+        .bar-wrapper {
+          margin-left: 1.5rem;
+          position: relative;
+          border-radius: 1rem;
+          overflow: hidden;
+
+          width: 15rem;
+          height: 0.6rem;
+        }
+      }
+    }
+  }
+
+  .evolution {
+    margin-top: 1rem;
+    gap: 3.5rem;
+
+    .evolution-wrapper {
+      .pokemon-wrapper {
+        position: relative;
+        padding-top: 3.8rem;
+        padding-left: 0.5rem;
+        text-align: center;
+      }
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 `
 
 export const DetailButton = styled.button`
@@ -140,34 +214,67 @@ export const DetailButton = styled.button`
   opacity: 0.8;
   position: relative;
   line-height: 2.4rem;
+  cursor: pointer;
 
-  ${({ active }) =>
-    active &&
+  ${({ isactive }) =>
+    isactive === 'y' &&
     `
     font-weight: bold;
-    border-bottom: .5rem solid;
+    border-bottom: .3rem solid;
   `}
 `
 
-export const Details = styled.div`
-  padding: 2rem 0;
+export const Detail = styled.div`
+  width: 100%;
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.2rem;
+`
 
-  .metrics {
-    padding: 2rem 4rem;
-    background-color: ${({ theme }) => theme.bg.primary};
-    box-shadow: 1rem 1rem 0.7rem -0.7rem rgba(0, 0, 0, 0.52);
-    border-radius: 1.3rem;
+export const Metrics = styled.div`
+  width: 100%;
+  padding: 1rem 2rem;
+  background: ${({ bg }) => bg};
+  border-radius: 1.3rem;
+  color: white;
+  font-weight: 600;
 
+  display: flex;
+  justify-content: space-between;
+
+  div {
     display: flex;
-    gap: 4rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-    div {
-      display: flex;
-      flex-direction: column;
+  strong {
+    font-size: 1.8rem;
+  }
+`
+
+export const StatBar = styled.div`
+  position: absolute;
+  height: 100%;
+  width: calc(${({ w }) => w});
+  background: ${({ theme }) => theme.bg.secondary};
+
+  ${({ animation }) =>
+    animation === 'y'
+      ? `
+    animation: bar-animation 0.6s linear;
+  `
+      : `opacity: 0.1;`}
+
+  @keyframes bar-animation {
+    from {
+      width: 0;
+    }
+    to {
+      ${({ w }) => w};
     }
   }
 `

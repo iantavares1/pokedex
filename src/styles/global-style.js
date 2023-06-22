@@ -26,10 +26,6 @@ export default createGlobalStyle`
       width: 1rem;
     }
 
-    &::-webkit-scrollbar-track {
-      background: ${({ theme }) => theme.bg.primary};
-    }
-
     &::-webkit-scrollbar-thumb {
       background: ${({ theme }) => theme.scrollbar.primary};
       border-radius: 0.5rem;

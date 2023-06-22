@@ -90,7 +90,7 @@ export const PokeList = ({ home, type, search }) => {
             <PokeCard
               key={pokemon.id}
               id={pokemon.id}
-              name={pokemon.species.name}
+              name={pokemon.name}
               type={pokemon.types[0].type.name}
               type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
               imgUrl={pokemon.sprites.other.home.front_default}

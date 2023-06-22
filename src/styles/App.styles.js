@@ -22,6 +22,7 @@ export const Header = styled.div`
 
   button {
     all: unset;
+    cursor: pointer;
   }
 
   > span {

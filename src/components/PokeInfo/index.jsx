@@ -4,13 +4,16 @@ import * as S from './styles'
 
 import { FavContext } from '../../contexts/favContext'
 
-import { bgColors } from '../../utils/bgColors'
 import { BackIcon } from '../common/BackIcon'
+import { HeartIcon } from '../common/HeartIcon'
+import { bgColors } from '../../utils/bgColors'
+import { typeIcons } from '../../utils/typeIcons'
+
 import { formatString } from '../../utils/formatString'
 import { fetchPokemon } from '../../api/fetchPokemon'
+import { fetchFamily } from '../../api/fetchFamily'
 import { formatId } from '../../utils/formatId'
-import { typeIcons } from '../../utils/typeIcons'
-import { HeartIcon } from '../common/HeartIcon'
+import { ArrowIcon } from '../common/ArrowIcon'
 
 export const PokeInfo = ({ info, isOpen }) => {
   const favoritesContext = useContext(FavContext)
@@ -19,9 +22,13 @@ export const PokeInfo = ({ info, isOpen }) => {
   const TypeIcon = typeIcons[type]
   const TypeIcon2 = typeIcons[type2]
 
-  const [pokemon, setPokemon] = useState({})
   const [isFavorite, setIsFavorite] = useState(false)
+  const [description, setDescription] = useState('')
   const [detailsPage, setDetailsPage] = useState('about')
+
+  const [pokemon, setPokemon] = useState({})
+  const [stats, setStats] = useState([])
+  const [evolutions, setEvolutions] = useState([])
 
   const loadIsFavorite = () =>
     setIsFavorite(!!favoritesContext.favorites.includes(name))
@@ -41,6 +48,16 @@ export const PokeInfo = ({ info, isOpen }) => {
     loadIsFavorite()
   })
 
+  const cleanUpDescription = (description) => {
+    const cleanedDescription = description
+      .replaceAll('\n', ' ')
+      .replaceAll('\f', ' ')
+      .replaceAll(name.toUpperCase(), formatString(name))
+      .replaceAll('POKéMON', 'pokémon')
+
+    return cleanedDescription
+  }
+
   useEffect(() => {
     const getPokemon = async () => {
       try {
@@ -52,6 +69,54 @@ export const PokeInfo = ({ info, isOpen }) => {
     }
     getPokemon()
   }, [isOpen, name])
+
+  useEffect(() => {
+    const getDesciption = async () => {
+      try {
+        const response = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${id}`,
+        )
+        const data = await response.json()
+        const pokemonDesc = data.flavor_text_entries.filter(
+          (flavorText) => flavorText.language.name === 'en',
+        )
+        const selectedDesc = pokemonDesc.filter((flavorText) =>
+          flavorText.flavor_text.includes(name.toUpperCase()),
+        )
+        setDescription(
+          cleanUpDescription(
+            selectedDesc.length > 0
+              ? selectedDesc[0].flavor_text
+              : pokemonDesc[0].flavor_text,
+          ),
+        )
+      } catch (error) {
+        console.log(`Erro: ${error}`)
+      }
+    }
+    getDesciption()
+  })
+
+  useEffect(() => {
+    setStats(pokemon.stats)
+  }, [pokemon])
+
+  useEffect(() => {
+    const getEvolutions = async () => {
+      try {
+        const response = await fetchFamily(id)
+        if (response.length <= 1) setEvolutions(null)
+        else {
+          const promises = response.map(({ name }) => fetchPokemon(name))
+          const pokemons = await Promise.all(promises)
+          setEvolutions(pokemons)
+        }
+      } catch (error) {
+        console.log(`Erro: ${error}`)
+      }
+    }
+    getEvolutions()
+  }, [id, name])
 
   return (
     <S.Container bg={bgColors[type]}>
@@ -90,7 +155,7 @@ export const PokeInfo = ({ info, isOpen }) => {
           <span className="buttons">
             <div className="button-wrapper">
               <S.DetailButton
-                active={detailsPage === 'about'}
+                isactive={detailsPage === 'about' ? 'y' : 'n'}
                 onClick={() => handleDetailsPage('about')}
               >
                 About
@@ -98,39 +163,121 @@ export const PokeInfo = ({ info, isOpen }) => {
             </div>
             <div className="button-wrapper">
               <S.DetailButton
-                active={detailsPage === 'stats'}
+                isactive={detailsPage === 'stats' ? 'y' : 'n'}
                 onClick={() => handleDetailsPage('stats')}
               >
                 Stats
               </S.DetailButton>
             </div>
-            <div className="button-wrapper">
-              <S.DetailButton
-                active={detailsPage === 'evolution'}
-                onClick={() => handleDetailsPage('evolution')}
-              >
-                Evolution
-              </S.DetailButton>
-            </div>
+            {evolutions && (
+              <div className="button-wrapper">
+                <S.DetailButton
+                  isactive={detailsPage === 'evolution' ? 'y' : 'n'}
+                  onClick={() => handleDetailsPage('evolution')}
+                >
+                  Evolution
+                </S.DetailButton>
+              </div>
+            )}
           </span>
         </header>
         {detailsPage === 'about' && (
-          <S.Details>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <span className="metrics">
+          <S.Detail className="about">
+            <p className="description">{description}</p>
+            <S.Metrics bg={bgColors[type]}>
               <div className="height">
-                <span>Height</span>
-                <span>{pokemon.height / 10}m</span>
+                <span className="metric-name">Height</span>
+                <span className="metric-value">
+                  <strong>{pokemon.height / 10} m</strong>
+                </span>
               </div>
               <div className="weight">
-                <span>Weight</span>
-                <span>{pokemon.weight / 10}Kg</span>
+                <span className="metric-name">Weight</span>
+                <span className="metric-value">
+                  <strong>{pokemon.weight / 10} Kg</strong>
+                </span>
               </div>
-            </span>
-          </S.Details>
+            </S.Metrics>
+          </S.Detail>
         )}
-        {detailsPage === 'stats' && <S.Details>oi</S.Details>}
-        {detailsPage === 'evolution' && <S.Details>Seila</S.Details>}
+        {detailsPage === 'stats' && (
+          <S.Detail className="stats">
+            {stats.map((stat) => (
+              <div key={stat.stat.name} className="stat">
+                <span>
+                  {stat.stat.name.includes('special')
+                    ? stat.stat.name
+                        .replace('-', ' ')
+                        .replace('special', 'Sp.')
+                        .replace('attack', 'Atk')
+                        .replace('defense', 'Def')
+                    : formatString(stat.stat.name)}
+                </span>
+                <div className="stat-wrapper">
+                  <span>{stat.base_stat}</span>
+                  <div className="bar-wrapper">
+                    <S.StatBar
+                      style={{ background: `${bgColors[type]}` }}
+                      w={`${stat.base_stat}%`}
+                      animation={'y'}
+                    />
+                    <S.StatBar w="100%" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </S.Detail>
+        )}
+        {detailsPage === 'evolution' && (
+          <S.Detail className="evolution">
+            {evolutions && (
+              <div className="evolution-wrapper">
+                <div className="pokemon-wrapper">
+                  <S.Img2
+                    src={
+                      evolutions[0].sprites.other.home.front_default ||
+                      evolutions[0].sprites.front_default
+                    }
+                  />
+                  <span>{formatString(evolutions[0].name)}</span>
+                </div>
+                <ArrowIcon />
+                <div className="pokemon-wrapper">
+                  <S.Img2
+                    src={
+                      evolutions[1].sprites.other.home.front_default ||
+                      evolutions[1].sprites.front_default
+                    }
+                  />
+                  <span>{formatString(evolutions[1].name)}</span>
+                </div>
+              </div>
+            )}
+            {evolutions.length > 2 && (
+              <div className="evolution-wrapper">
+                <div className="pokemon-wrapper">
+                  <S.Img2
+                    src={
+                      evolutions[1].sprites.other.home.front_default ||
+                      evolutions[1].sprites.front_default
+                    }
+                  />
+                  <span>{formatString(evolutions[1].name)}</span>
+                </div>
+                <ArrowIcon />
+                <div className="pokemon-wrapper">
+                  <S.Img2
+                    src={
+                      evolutions[2].sprites.other.home.front_default ||
+                      evolutions[2].sprites.front_default
+                    }
+                  />
+                  <span>{formatString(evolutions[2].name)}</span>
+                </div>
+              </div>
+            )}
+          </S.Detail>
+        )}
       </S.DetailsWrapper>
     </S.Container>
   )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import * as S from './styles'
 
@@ -16,6 +16,14 @@ export const PokeCard = ({ name, id, type, type2, imgUrl, imgUrl2 }) => {
   const handlePokeInfo = () => setIsOpen(!isOpen)
 
   const TypeIcon = typeIcons[type]
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'visible'
+
+    return () => {
+      document.body.style.overflow = 'visible'
+    }
+  }, [isOpen])
 
   return (
     <>

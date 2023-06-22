@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 export const Container = styled.div`
   display: flex;
   gap: 0.8rem;
-  overflow: scroll;
+  overflow-x: scroll;
 `
 
 export const TypeButton = styled.button`
