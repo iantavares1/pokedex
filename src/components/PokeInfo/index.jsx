@@ -28,7 +28,7 @@ export const PokeInfo = ({ info, isOpen }) => {
 
   const [pokemon, setPokemon] = useState({})
   const [stats, setStats] = useState([])
-  const [evolutions, setEvolutions] = useState([])
+  const [evolutions, setEvolutions] = useState(null)
 
   const loadIsFavorite = () =>
     setIsFavorite(!!favoritesContext.favorites.includes(name))
@@ -218,7 +218,7 @@ export const PokeInfo = ({ info, isOpen }) => {
                   <div className="bar-wrapper">
                     <S.StatBar
                       style={{ background: `${bgColors[type]}` }}
-                      w={`${stat.base_stat}%`}
+                      w={`calc(${stat.base_stat}% * 0.67)`}
                       animation={'y'}
                     />
                     <S.StatBar w="100%" />
@@ -230,52 +230,36 @@ export const PokeInfo = ({ info, isOpen }) => {
         )}
         {detailsPage === 'evolution' && (
           <S.Detail className="evolution">
-            {evolutions && (
-              <div className="evolution-wrapper">
-                <div className="pokemon-wrapper">
-                  <S.Img2
-                    src={
-                      evolutions[0].sprites.other.home.front_default ||
-                      evolutions[0].sprites.front_default
-                    }
-                  />
-                  <span>{formatString(evolutions[0].name)}</span>
-                </div>
-                <ArrowIcon />
-                <div className="pokemon-wrapper">
-                  <S.Img2
-                    src={
-                      evolutions[1].sprites.other.home.front_default ||
-                      evolutions[1].sprites.front_default
-                    }
-                  />
-                  <span>{formatString(evolutions[1].name)}</span>
-                </div>
-              </div>
-            )}
-            {evolutions.length > 2 && (
-              <div className="evolution-wrapper">
-                <div className="pokemon-wrapper">
-                  <S.Img2
-                    src={
-                      evolutions[1].sprites.other.home.front_default ||
-                      evolutions[1].sprites.front_default
-                    }
-                  />
-                  <span>{formatString(evolutions[1].name)}</span>
-                </div>
-                <ArrowIcon />
-                <div className="pokemon-wrapper">
-                  <S.Img2
-                    src={
-                      evolutions[2].sprites.other.home.front_default ||
-                      evolutions[2].sprites.front_default
-                    }
-                  />
-                  <span>{formatString(evolutions[2].name)}</span>
-                </div>
-              </div>
-            )}
+            {evolutions &&
+              evolutions.map((pokemon, i) => {
+                if (i + 1 < evolutions.length) {
+                  return (
+                    <div className="evolution-wrapper" key={i}>
+                      <div className="pokemon-wrapper">
+                        <S.Img2
+                          src={
+                            pokemon.sprites.other.home.front_default ||
+                            pokemon.sprites.front_default
+                          }
+                        />
+                        <span>{formatString(pokemon.name)}</span>
+                      </div>
+                      <ArrowIcon />
+                      <div className="pokemon-wrapper">
+                        <S.Img2
+                          src={
+                            evolutions[i + 1].sprites.other.home
+                              .front_default ||
+                            evolutions[i + 1].sprites.front_default
+                          }
+                        />
+                        <span>{formatString(evolutions[i + 1].name)}</span>
+                      </div>
+                    </div>
+                  )
+                }
+                return null
+              })}
           </S.Detail>
         )}
       </S.DetailsWrapper>

@@ -9,6 +9,7 @@ export const Container = styled.div`
   height: 100vh;
   background: ${({ bg }) => bg};
   animation: get-in 0.2s linear;
+  overflow: hidden scroll;
 
   &::-webkit-scrollbar {
     width: 1rem;
@@ -121,7 +122,7 @@ export const Type = styled.div`
 `
 export const DetailsWrapper = styled.div`
   width: 100vw;
-  height: calc(100% - 45vh);
+  min-height: calc(100% - 45vh);
   padding: 2rem 3rem 3rem;
 
   background: ${({ theme }) => theme.bg.primary};
@@ -173,8 +174,11 @@ export const DetailsWrapper = styled.div`
       line-height: 140%;
 
       .stat-wrapper {
+        width: 80%;
         display: flex;
         align-items: center;
+        justify-content: flex-end;
+        gap: 0.5rem;
 
         .bar-wrapper {
           margin-left: 1.5rem;
@@ -182,7 +186,7 @@ export const DetailsWrapper = styled.div`
           border-radius: 1rem;
           overflow: hidden;
 
-          width: 15rem;
+          width: 70%;
           height: 0.6rem;
         }
       }
@@ -194,16 +198,18 @@ export const DetailsWrapper = styled.div`
     gap: 3.5rem;
 
     .evolution-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.4rem;
       .pokemon-wrapper {
+        width: 8rem;
         position: relative;
         padding-top: 3.8rem;
         padding-left: 0.5rem;
         text-align: center;
       }
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
   }
 `
