@@ -38,7 +38,6 @@ export const PokeList = ({ home, type, search }) => {
       const getData = async () => {
         try {
           const response = await fetchPokemon('', 150)
-
           setAllPokemons(response.results)
         } catch (error) {
           console.log(`Erro: ${error}`)
@@ -59,10 +58,17 @@ export const PokeList = ({ home, type, search }) => {
     } else {
       const getData = async () => {
         try {
-          const searchedNames = NamesArr.filter((name) => name.includes(search))
-          const promises = searchedNames.map((name) => fetchPokemon(name))
-          const pokemons = await Promise.all(promises)
-          setPokeData(pokemons)
+          if (!isNaN(search)) {
+            const response = await fetchPokemon(search)
+            setPokeData([response])
+          } else {
+            const searchedNames = NamesArr.filter((name) =>
+              name.includes(search),
+            )
+            const promises = searchedNames.map((name) => fetchPokemon(name))
+            const pokemons = await Promise.all(promises)
+            setPokeData(pokemons)
+          }
         } catch (error) {
           console.log(`Erro: ${error}`)
         }

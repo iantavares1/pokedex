@@ -1,8 +1,11 @@
-export const fetchPokemon = async (pokemon, limit, offset) => {
+export const fetchPokemon = async (pokemon, limit) => {
+  let url = `https://pokeapi.co/api/v2/pokemon/${
+    typeof pokemon === 'string' ? pokemon.toLowerCase() : pokemon
+  }`
   try {
-    const url = `https://pokeapi.co/api/v2/pokemon/${
-      typeof pokemon === 'string' ? pokemon.toLowerCase() : pokemon
-    }?limit=${limit}&offset=${offset}`
+    if (limit) {
+      url = `${url}?limit=${limit}`
+    }
     const response = await fetch(url)
     const data = await response.json()
     return data
