@@ -70,7 +70,7 @@ export const Types = styled.div`
     background: rgba(0, 0, 0, 0.2);
     border-radius: 1.3rem;
 
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 0.8rem;
     font-size: 0.8rem;
 
     display: flex;

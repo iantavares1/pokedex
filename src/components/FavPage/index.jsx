@@ -41,7 +41,10 @@ export const FavPage = ({ favorites }) => {
             />
           ))
         ) : (
-          <ErrorMessage message={'No Favorite Pokémon!'} />
+          <ErrorMessage
+            style={{ marginTop: '4rem' }}
+            message={'No Favorite Pokémon!'}
+          />
         )}
       </S.Container>
     </>

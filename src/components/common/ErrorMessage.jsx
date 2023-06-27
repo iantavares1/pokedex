@@ -2,16 +2,13 @@ import { styled } from 'styled-components'
 
 const Container = styled.div`
   padding: 2rem;
-  margin-top: 4rem;
-  display: flex;
   text-align: center;
   color: ${({ theme }) => theme.text.primary};
-  flex-direction: column;
 `
 
-export const ErrorMessage = ({ message }) => {
+export const ErrorMessage = ({ message, style }) => {
   return (
-    <Container>
+    <Container style={style}>
       <span>
         <h1>{message}</h1>
       </span>

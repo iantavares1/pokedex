@@ -6,6 +6,8 @@ import { fetchPokemon } from '../../api/fetchPokemon'
 import { fetchType } from '../../api/fetchType'
 import { PokeCard } from '../PokeCard'
 
+import { ErrorMessage } from '../common/ErrorMessage'
+
 export const PokeList = ({ home, type, search }) => {
   const [count, setCount] = useState(0)
   const [NamesArr, setNamesArr] = useState([])
@@ -59,15 +61,23 @@ export const PokeList = ({ home, type, search }) => {
       const getData = async () => {
         try {
           if (!isNaN(search)) {
-            const response = await fetchPokemon(search)
-            setPokeData([response])
+            if (search > 0 && search <= 1010) {
+              const response = await fetchPokemon(search)
+              setPokeData([response])
+            } else {
+              setPokeData(null)
+            }
           } else {
             const searchedNames = NamesArr.filter((name) =>
               name.includes(search),
             )
-            const promises = searchedNames.map((name) => fetchPokemon(name))
-            const pokemons = await Promise.all(promises)
-            setPokeData(pokemons)
+            if (searchedNames.length > 0) {
+              const promises = searchedNames.map((name) => fetchPokemon(name))
+              const pokemons = await Promise.all(promises)
+              setPokeData(pokemons)
+            } else {
+              setPokeData(null)
+            }
           }
         } catch (error) {
           console.log(`Erro: ${error}`)
@@ -75,7 +85,7 @@ export const PokeList = ({ home, type, search }) => {
       }
       getData()
     }
-  }, [home, type, search, NamesArr])
+  }, [home, type, search, NamesArr, count])
 
   useEffect(() => {
     const getPokeData = async () => {
@@ -90,19 +100,23 @@ export const PokeList = ({ home, type, search }) => {
 
   return (
     <S.Container>
-      {pokeData.map(
-        (pokemon) =>
-          pokemon.id < 1000 && (
-            <PokeCard
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              type={pokemon.types[0].type.name}
-              type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
-              imgUrl={pokemon.sprites.other.home.front_default}
-              imgUrl2={pokemon.sprites.front_default}
-            />
-          ),
+      {pokeData ? (
+        pokeData.map((pokemon) => (
+          <PokeCard
+            key={pokemon.id}
+            id={pokemon.id}
+            name={pokemon.name}
+            type={pokemon.types[0].type.name}
+            type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
+            imgUrl={pokemon.sprites.other.home.front_default}
+            imgUrl2={pokemon.sprites.front_default}
+          />
+        ))
+      ) : (
+        <ErrorMessage
+          message={'Pokémon not found!'}
+          style={{ gridColumn: '1/3' }}
+        />
       )}
     </S.Container>
   )
