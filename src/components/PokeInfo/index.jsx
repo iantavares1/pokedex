@@ -77,19 +77,21 @@ export const PokeInfo = ({ info, isOpen }) => {
           `https://pokeapi.co/api/v2/pokemon-species/${id}`,
         )
         const data = await response.json()
-        const pokemonDesc = data.flavor_text_entries.filter(
-          (flavorText) => flavorText.language.name === 'en',
-        )
-        const selectedDesc = pokemonDesc.filter((flavorText) =>
-          flavorText.flavor_text.includes(name.toUpperCase()),
-        )
-        setDescription(
-          cleanUpDescription(
-            selectedDesc.length > 0
-              ? selectedDesc[0].flavor_text
-              : pokemonDesc[0].flavor_text,
-          ),
-        )
+        if (data.flavor_text_entries.length > 0) {
+          const pokemonDesc = data.flavor_text_entries.filter(
+            (flavorText) => flavorText.language.name === 'en',
+          )
+          const selectedDesc = pokemonDesc.filter((flavorText) =>
+            flavorText.flavor_text.includes(name.toUpperCase()),
+          )
+          setDescription(
+            cleanUpDescription(
+              selectedDesc.length > 0
+                ? selectedDesc[0].flavor_text
+                : pokemonDesc[0].flavor_text,
+            ),
+          )
+        }
       } catch (error) {
         console.log(`Erro: ${error}`)
       }
@@ -196,7 +198,7 @@ export const PokeInfo = ({ info, isOpen }) => {
               <div className="weight">
                 <span className="metric-name">Weight</span>
                 <span className="metric-value">
-                  <strong>{pokemon.weight / 10} Kg</strong>
+                  <strong>{pokemon.weight / 10} kg</strong>
                 </span>
               </div>
             </S.Metrics>
