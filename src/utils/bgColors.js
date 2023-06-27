@@ -1,6 +1,6 @@
 export const bgColors = {
-  normal: 'linear-gradient(to right, #747474, #4f4f4f)',
-  fire: 'linear-gradient(to right, #ff944d, #ff4400)',
+  normal: 'linear-gradient(to right, #a5a5a5, #757575)',
+  fire: 'linear-gradient(to right, #fc9754, #fc4f0f)',
   water: 'linear-gradient(to right, #3385ff, #0047b3)',
   electric: 'linear-gradient(to right, #ffcc66, #ff8000)',
   grass: 'linear-gradient(to right, #88cc66, #339900)',
