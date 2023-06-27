@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import * as S from './styles'
 
 import { PokeCard } from '../PokeCard'
-import { NoFavorites } from '../common/NoFavorites'
+import { ErrorMessage } from '../common/ErrorMessage'
 import { fetchPokemon } from '../../api/fetchPokemon'
 import { Divider } from '../common/Divider'
 
@@ -41,7 +41,7 @@ export const FavPage = ({ favorites }) => {
             />
           ))
         ) : (
-          <NoFavorites />
+          <ErrorMessage message={'No Favorite Pokémon!'} />
         )}
       </S.Container>
     </>

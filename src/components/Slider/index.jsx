@@ -11,7 +11,6 @@ export const Slider = ({ onChoice }) => {
 
   const getType = (e) => {
     onChoice(e.target.innerHTML)
-    console.log(e.target.innerHTML)
   }
 
   const handleSlider = (direction) => {
