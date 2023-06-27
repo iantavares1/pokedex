@@ -9,7 +9,6 @@ export const Container = styled.div`
   height: 100vh;
   background: ${({ bg }) => bg};
   animation: get-in 0.2s linear;
-  overflow: hidden scroll;
 
   &::-webkit-scrollbar {
     width: 1rem;
@@ -122,7 +121,7 @@ export const Type = styled.div`
 `
 export const DetailsWrapper = styled.div`
   width: 100vw;
-  min-height: calc(100% - 45vh);
+  min-height: 45vh;
   padding: 2rem 3rem 3rem;
 
   background: ${({ theme }) => theme.bg.primary};
@@ -159,6 +158,7 @@ export const DetailsWrapper = styled.div`
   }
 
   .about {
+    gap: 2rem;
     .description {
       font-size: 1.2rem;
       line-height: 140%;

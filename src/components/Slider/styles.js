@@ -40,4 +40,7 @@ export const Button = styled.button`
   @media (min-width: 768px) {
     display: block;
   }
+  @media (min-width: 1690px) {
+    display: none;
+  }
 `
