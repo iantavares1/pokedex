@@ -9,23 +9,14 @@ import { PokeCard } from '../PokeCard'
 import { ErrorMessage } from '../common/ErrorMessage'
 
 export const PokeList = ({ home, type, search }) => {
-  const [count, setCount] = useState(0)
   const [NamesArr, setNamesArr] = useState([])
   const [allPokemons, setAllPokemons] = useState([])
   const [pokeData, setPokeData] = useState([])
 
   useEffect(() => {
-    const getCount = async () => {
-      const response = await fetchPokemon('')
-      setCount(response.count)
-    }
-    getCount()
-  }, [])
-
-  useEffect(() => {
     const getNames = async () => {
       try {
-        const response = await fetchPokemon('', count)
+        const response = await fetchPokemon('', 1010)
         const names = response.results.map((pokemon) => pokemon.name)
         setNamesArr(names)
       } catch (error) {
@@ -33,7 +24,7 @@ export const PokeList = ({ home, type, search }) => {
       }
     }
     getNames()
-  }, [count])
+  }, [])
 
   useEffect(() => {
     if (home) {
@@ -85,7 +76,7 @@ export const PokeList = ({ home, type, search }) => {
       }
       getData()
     }
-  }, [home, type, search, NamesArr, count])
+  }, [home, type, search, NamesArr])
 
   useEffect(() => {
     const getPokeData = async () => {
@@ -94,24 +85,26 @@ export const PokeList = ({ home, type, search }) => {
       const pokemons = await Promise.all(promises)
       setPokeData(pokemons)
     }
-
     getPokeData()
   }, [allPokemons])
 
   return (
     <S.Container>
       {pokeData ? (
-        pokeData.map((pokemon) => (
-          <PokeCard
-            key={pokemon.id}
-            id={pokemon.id}
-            name={pokemon.name}
-            type={pokemon.types[0].type.name}
-            type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
-            imgUrl={pokemon.sprites.other.home.front_default}
-            imgUrl2={pokemon.sprites.front_default}
-          />
-        ))
+        pokeData.map(
+          (pokemon) =>
+            pokemon.id <= 1010 && (
+              <PokeCard
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                type={pokemon.types[0].type.name}
+                type2={pokemon.types[1] ? pokemon.types[1].type.name : null}
+                imgUrl={pokemon.sprites.other.home.front_default}
+                imgUrl2={pokemon.sprites.front_default}
+              />
+            ),
+        )
       ) : (
         <ErrorMessage
           message={'Pokémon not found!'}
