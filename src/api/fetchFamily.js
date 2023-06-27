@@ -16,6 +16,7 @@ export const fetchFamily = async (pokemon) => {
     const traverseEvolutionChain = (chain) => {
       const pokemon = {
         name: chain.species.name,
+        url: chain.species.url.replace('-species', ''),
       }
 
       pokemonFamily.push(pokemon)

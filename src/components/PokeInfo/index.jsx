@@ -104,10 +104,12 @@ export const PokeInfo = ({ info, isOpen }) => {
   useEffect(() => {
     const getEvolutions = async () => {
       try {
-        const response = await fetchFamily(id)
+        const response = await fetchFamily(id, name)
         if (response.length <= 1) setEvolutions(null)
         else {
-          const promises = response.map(({ name }) => fetchPokemon(name))
+          const promises = response.map(({ url }) =>
+            fetch(url).then((res) => res.json()),
+          )
           const pokemons = await Promise.all(promises)
           setEvolutions(pokemons)
         }
@@ -217,8 +219,12 @@ export const PokeInfo = ({ info, isOpen }) => {
                   <span>{stat.base_stat}</span>
                   <div className="bar-wrapper">
                     <S.StatBar
-                      style={{ background: `${bgColors[type]}` }}
-                      w={`calc(${stat.base_stat}% * 0.67)`}
+                      style={{
+                        background: `${
+                          type !== 'dark' ? bgColors[type] : '#808080'
+                        }`,
+                      }}
+                      w={`calc(${stat.base_stat}% * 0.5)`}
                       animation={'y'}
                     />
                     <S.StatBar w="100%" />
