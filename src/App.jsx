@@ -18,7 +18,7 @@ import { FavPage } from './components/FavPage'
 
 import { HeartIcon } from './components/common/HeartIcon'
 import { Switch } from './components/common/Switch.jsx'
-import { BackIcon } from './components/common/BackIcon.jsx'
+import { ArrowIcon2 } from './components/common/ArrowIcon2'
 
 function App() {
   const [theme, setTheme] = useState(dark)
@@ -132,7 +132,7 @@ function App() {
             <S.Header>
               <span>
                 <button onClick={handleHomeList}>
-                  <BackIcon />
+                  <ArrowIcon2 />
                 </button>
                 <h1>Favorites</h1>
               </span>

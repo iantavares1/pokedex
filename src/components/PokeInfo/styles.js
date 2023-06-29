@@ -121,7 +121,7 @@ export const Type = styled.div`
 `
 export const DetailsWrapper = styled.div`
   width: 100vw;
-  min-height: 45vh;
+  height: 25rem;
   padding: 2rem 3rem 3rem;
 
   background: ${({ theme }) => theme.bg.primary};
@@ -158,7 +158,6 @@ export const DetailsWrapper = styled.div`
   }
 
   .about {
-    gap: 2rem;
     .description {
       font-size: 1.2rem;
       line-height: 140%;
@@ -194,15 +193,17 @@ export const DetailsWrapper = styled.div`
   }
 
   .evolution {
+    position: relative;
     margin-top: 1rem;
     gap: 3.5rem;
 
     .evolution-wrapper {
       width: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 3rem;
       font-size: 1.4rem;
+
       .pokemon-wrapper {
         width: 8rem;
         position: relative;
@@ -282,5 +283,39 @@ export const StatBar = styled.div`
     to {
       ${({ w }) => w};
     }
+  }
+`
+
+export const Select = styled.div`
+  position: absolute;
+  z-index: 998;
+  background: ${({ theme }) => theme.bg.primary};
+  top: -5rem;
+  right: -1rem;
+  width: 10rem;
+  height: 18rem;
+  padding-top: 3rem;
+  box-shadow: 1rem 1rem 1rem -1rem rgba(0, 0, 0, 0.76);
+  border-radius: 5px;
+  display: none;
+  flex-direction: column;
+  margin-top: 3rem;
+  align-items: center;
+  gap: 2rem;
+  overflow: hidden scroll;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 4rem;
+    }
+  }
+
+  img {
+    position: relative;
   }
 `

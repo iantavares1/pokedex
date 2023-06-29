@@ -17,23 +17,19 @@ export const fetchFamily = async (pokemon) => {
       const pokemon = {
         name: chain.species.name,
         url: chain.species.url.replace('-species', ''),
+        evolutions: [],
       }
-
-      pokemonFamily.push(pokemon)
 
       if (chain.evolves_to.length > 0) {
-        traverseEvolutionChain(chain.evolves_to[0])
+        chain.evolves_to.forEach((evolution) => {
+          pokemon.evolutions.push(traverseEvolutionChain(evolution))
+        })
       }
 
-      if (chain.evolves_to.length > 1) {
-        for (let i = 1; i < chain.evolves_to.length; i++) {
-          traverseEvolutionChain(chain.evolves_to[i])
-        }
-      }
+      return pokemon
     }
 
-    traverseEvolutionChain(evolutionChain)
-
+    pokemonFamily.push(traverseEvolutionChain(evolutionChain))
     return pokemonFamily
   } catch (error) {
     console.log(`Erro: ${error}`)

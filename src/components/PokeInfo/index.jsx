@@ -4,16 +4,18 @@ import * as S from './styles'
 
 import { FavContext } from '../../contexts/favContext'
 
-import { BackIcon } from '../common/BackIcon'
+import { ArrowIcon } from '../common/ArrowIcon'
+import { ArrowIcon2 } from '../common/ArrowIcon2'
+import { ArrowIcon3 } from '../common/ArrowIcon3'
 import { HeartIcon } from '../common/HeartIcon'
+
 import { bgColors } from '../../utils/bgColors'
 import { typeIcons } from '../../utils/typeIcons'
 
-import { formatString } from '../../utils/formatString'
 import { fetchPokemon } from '../../api/fetchPokemon'
 import { fetchFamily } from '../../api/fetchFamily'
+import { formatString } from '../../utils/formatString'
 import { formatId } from '../../utils/formatId'
-import { ArrowIcon } from '../common/ArrowIcon'
 
 export const PokeInfo = ({ info, isOpen }) => {
   const favoritesContext = useContext(FavContext)
@@ -106,27 +108,45 @@ export const PokeInfo = ({ info, isOpen }) => {
   useEffect(() => {
     const getEvolutions = async () => {
       try {
-        const response = await fetchFamily(id, name)
-        if (response.length <= 1) setEvolutions(null)
+        const response = await fetchFamily(name)
+        if (response[0].evolutions.length < 1) setEvolutions(null)
         else {
-          const promises = response.map(({ url }) =>
-            fetch(url).then((res) => res.json()),
-          )
-          const pokemons = await Promise.all(promises)
-          setEvolutions(pokemons)
+          const family = []
+
+          const addPokemon = async (pokemon, parent) => {
+            const pokemonResponse = await fetch(pokemon.url)
+            const pokemonData = await pokemonResponse.json()
+
+            const newPokemon = {
+              data: pokemonData,
+              evolutions: [],
+            }
+
+            parent.push(newPokemon)
+
+            if (pokemon.evolutions.length > 0) {
+              for (const evolution of pokemon.evolutions) {
+                await addPokemon(evolution, newPokemon.evolutions)
+              }
+            }
+          }
+
+          await addPokemon(response[0], family)
+          setEvolutions(family)
         }
       } catch (error) {
         console.log(`Erro: ${error}`)
       }
     }
+
     getEvolutions()
-  }, [id, name])
+  }, [name])
 
   return (
     <S.Container bg={bgColors[type]}>
       <div className="top-buttons">
         <S.Button onClick={handleClosePokeInfo}>
-          <BackIcon fill={'white'} />
+          <ArrowIcon2 fill={'white'} />
         </S.Button>
 
         <S.Button onClick={handleIsFavorite}>
@@ -238,39 +258,105 @@ export const PokeInfo = ({ info, isOpen }) => {
         )}
         {detailsPage === 'evolution' && (
           <S.Detail className="evolution">
-            {evolutions &&
-              evolutions.map((pokemon, i) => {
-                if (i + 1 < evolutions.length) {
-                  return (
-                    <div className="evolution-wrapper" key={i}>
-                      <div className="pokemon-wrapper">
-                        <S.Img2
-                          src={
-                            pokemon.sprites.other.home.front_default ||
-                            pokemon.sprites.front_default
-                          }
-                        />
-                        <span>{formatString(pokemon.name)}</span>
-                      </div>
-                      <ArrowIcon />
-                      <div className="pokemon-wrapper">
-                        <S.Img2
-                          src={
-                            evolutions[i + 1].sprites.other.home
-                              .front_default ||
-                            evolutions[i + 1].sprites.front_default
-                          }
-                        />
-                        <span>{formatString(evolutions[i + 1].name)}</span>
-                      </div>
-                    </div>
-                  )
-                }
-                return null
-              })}
+            {evolutions && renderEvolutions(evolutions)}
           </S.Detail>
         )}
       </S.DetailsWrapper>
     </S.Container>
+  )
+}
+
+const renderEvolutions = (evolutions) => {
+  const initial = evolutions[0]
+  const medium = initial.evolutions.length > 0 && initial.evolutions[0]
+  const final = medium.evolutions.length > 0 && medium.evolutions[0]
+
+  const mediumHasMultiple = initial.evolutions.length > 1
+  const finalHasMultiple = medium.evolutions.length > 1
+
+  return (
+    <>
+      <div
+        className="evolution-wrapper"
+        style={{ height: `${!final ? '20vh' : 'auto'}` }}
+      >
+        {pokemonWrapper(initial.data)}
+        <ArrowIcon />
+
+        {!mediumHasMultiple ? (
+          pokemonWrapper(medium.data)
+        ) : (
+          <MultipleWrapper evolutions={initial.evolutions} />
+        )}
+      </div>
+      {final && (
+        <div style={{ alignItems: 'flex-start' }} className="evolution-wrapper">
+          {pokemonWrapper(medium.data)}
+          <ArrowIcon />
+          {!finalHasMultiple ? (
+            pokemonWrapper(final.data)
+          ) : (
+            <div style={{ marginTop: '-3rem' }}>
+              <MultipleWrapper evolutions={medium.evolutions} />
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  )
+}
+
+const pokemonWrapper = (pokemon) => {
+  return (
+    <div className="pokemon-wrapper" key={pokemon.name}>
+      <S.Img2
+        src={
+          pokemon.sprites.other.home.front_default ||
+          pokemon.sprites.front_default
+        }
+      />
+      <span>{formatString(pokemon.name)}</span>
+    </div>
+  )
+}
+
+const MultipleWrapper = ({ evolutions }) => {
+  const [openSel, setOpenSel] = useState(false)
+
+  const handleOpenSel = () => setOpenSel(!openSel)
+
+  return (
+    <>
+      <button
+        style={{
+          background: 'none',
+          border: 'none',
+          zIndex: '999',
+          position: 'absolute',
+          top: `${openSel ? 0 : '5rem'}`,
+          right: '9rem',
+          transition: 'all 0.4s',
+          transform: `${openSel ? 'rotate(90deg)' : 'rotate(-90deg)'}`,
+        }}
+        onClick={handleOpenSel}
+      >
+        <ArrowIcon3 />
+      </button>
+
+      <S.Select style={{ display: `${openSel ? 'flex' : 'none'}` }}>
+        {evolutions.map(({ data }) => (
+          <div key={data.id}>
+            <S.Img2
+              src={
+                data.sprites.other.home.front_default ||
+                data.sprites.front_default
+              }
+              alt="pokemon"
+            />
+            <span>{formatString(data.name)}</span>
+          </div>
+        ))}
+      </S.Select>
+    </>
   )
 }
