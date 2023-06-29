@@ -1,6 +1,6 @@
 import { useTheme } from 'styled-components'
 
-export const NextPreviousIcon = ({ direction = 'l' }) => {
+export const ArrowIcon3 = ({ direction = 'l' }) => {
   const theme = useTheme()
   return (
     <div>

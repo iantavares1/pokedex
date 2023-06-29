@@ -4,7 +4,7 @@ import * as S from './styles'
 
 import { bgColors } from '../../utils/bgColors'
 import { formatString } from '../../utils/formatString'
-import { NextPreviousIcon } from '../common/NextPrevious'
+import { ArrowIcon3 } from '../common/ArrowIcon3'
 
 export const Slider = ({ onChoice }) => {
   const sliderRef = useRef(null)
@@ -26,7 +26,7 @@ export const Slider = ({ onChoice }) => {
   return (
     <S.Container>
       <S.Button onClick={() => handleSlider('previous')}>
-        <NextPreviousIcon direction="l" />
+        <ArrowIcon3 direction="l" />
       </S.Button>
 
       <S.Slider ref={sliderRef}>
@@ -42,7 +42,7 @@ export const Slider = ({ onChoice }) => {
       </S.Slider>
 
       <S.Button onClick={() => handleSlider('next')}>
-        <NextPreviousIcon direction="r" />
+        <ArrowIcon3 direction="r" />
       </S.Button>
     </S.Container>
   )

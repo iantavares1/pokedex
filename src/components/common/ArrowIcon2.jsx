@@ -4,7 +4,7 @@ const Container = styled.div`
   display: flex;
 `
 
-export const BackIcon = ({ fill }) => {
+export const ArrowIcon2 = ({ fill }) => {
   const theme = useTheme()
   return (
     <Container>
