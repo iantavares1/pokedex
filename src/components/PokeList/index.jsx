@@ -107,7 +107,7 @@ export const PokeList = ({ home, type, search }) => {
         )
       ) : (
         <ErrorMessage
-          message={'Pokémon not found!'}
+          message={'Pokémon Not Found!'}
           style={{ gridColumn: '1/3' }}
         />
       )}
