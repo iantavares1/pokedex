@@ -1,13 +1,37 @@
 # Pokedex
 
-![Screenshot](./preview.jpg)
+![Screenshot](./preview.png)
 
-## Deploy
+<p>
+  <img width="49%" src="./mobile.png" alt="Mobile Screenshot"/>
+  <img width="49%" src="./pikachu.png" alt="Pikachu Screenshot"/>
+</p>
 
-https://pokedex-b4s89q9z3-iantavares1.vercel.app/
+
+## Sobre
+
+<p>
+  Pokédex construída com Vite e styled-components. 
+  Além de uma página de favoritos, o projeto inclui 
+  pesquisa por nome, id e tipo de cada pokémon disponível 
+  na PokeAPI.
+</p>
 
 ## Ferramentas
 
 - JavaScript
 - ReactJS
-- PokeAPI
+- Styled-components
+- PokeAPI 
+
+## Deploy
+
+https://pokedex-iantavares1.vercel.app
+
+
+
+## PokeAPI
+
+https://pokeapi.co/
+
+
