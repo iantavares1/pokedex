@@ -1,9 +1,15 @@
-import { useTheme } from 'styled-components'
+import { styled, useTheme } from 'styled-components'
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 export const ArrowIcon3 = ({ direction = 'l' }) => {
   const theme = useTheme()
   return (
-    <div>
+    <Container>
       {direction === 'l' && (
         <svg
           width="15"
@@ -34,6 +40,6 @@ export const ArrowIcon3 = ({ direction = 'l' }) => {
           />
         </svg>
       )}
-    </div>
+    </Container>
   )
 }

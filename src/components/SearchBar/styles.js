@@ -1,6 +1,10 @@
 import { styled } from 'styled-components'
 
 export const Container = styled.div`
+  @media (min-width: 768px) {
+    zoom: 1.5;
+  }
+  max-width: 40rem;
   border-radius: 1.3rem;
   padding-left: 0.7rem;
 

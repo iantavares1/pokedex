@@ -41,6 +41,7 @@ export const PokeCard = ({ name, id, type, type2, imgUrl, imgUrl2 }) => {
           </S.InfoWrapper>
         </S.Container>
       </S.Wrapper>
+      {isOpen && <S.ModalBackground onClick={handlePokeInfo} />}
       {isOpen && <PokeInfo info={info} isOpen={handlePokeInfo} />}
     </>
   )

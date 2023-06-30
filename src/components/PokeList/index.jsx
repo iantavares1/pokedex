@@ -89,7 +89,11 @@ export const PokeList = ({ home, type, search }) => {
   }, [allPokemons])
 
   return (
-    <S.Container>
+    <S.Container
+      style={{
+        display: `${pokeData ? 'grid' : 'flex'}`,
+      }}
+    >
       {pokeData ? (
         pokeData.map(
           (pokemon) =>
@@ -106,10 +110,7 @@ export const PokeList = ({ home, type, search }) => {
             ),
         )
       ) : (
-        <ErrorMessage
-          message={'Pokémon Not Found!'}
-          style={{ gridColumn: '1/3' }}
-        />
+        <ErrorMessage message={'Pokémon Not Found!'} />
       )}
     </S.Container>
   )

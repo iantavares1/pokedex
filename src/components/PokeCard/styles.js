@@ -16,7 +16,7 @@ export const Container = styled.div`
   background: ${({ bg }) => bg};
   border-radius: 1.3rem;
   color: white;
-  box-shadow: 1rem 1rem 1rem -1rem rgba(0, 0, 0, 0.76);
+  box-shadow: 1rem 1rem 1rem -1rem rgba(0, 0, 0, 0.8);
 
   display: flex;
   flex-direction: column;
@@ -77,4 +77,14 @@ export const Types = styled.div`
     justify-content: center;
     align-items: center;
   }
+`
+
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 990;
 `

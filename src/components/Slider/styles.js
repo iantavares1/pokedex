@@ -1,6 +1,9 @@
 import { styled } from 'styled-components'
 
 export const Container = styled.div`
+  @media (min-width: 768px) {
+    zoom: 1.5;
+  }
   display: flex;
   gap: 1.5rem;
   align-items: center;
@@ -39,8 +42,5 @@ export const Button = styled.button`
 
   @media (min-width: 768px) {
     display: block;
-  }
-  @media (min-width: 1690px) {
-    display: none;
   }
 `

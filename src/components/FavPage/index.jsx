@@ -27,7 +27,11 @@ export const FavPage = ({ favorites }) => {
   return (
     <>
       <Divider />
-      <S.Container>
+      <S.Container
+        style={{
+          display: `${pokeData ? 'grid' : 'flex'}`,
+        }}
+      >
         {pokeData ? (
           pokeData.map((pokemon) => (
             <PokeCard

@@ -9,6 +9,25 @@ export const Container = styled.div`
   height: 100vh;
   background: ${({ bg }) => bg};
   animation: get-in 0.2s linear;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    zoom: 0.5;
+    width: 90%;
+    max-width: 100rem;
+    height: 50rem;
+    border-radius: 2rem;
+    display: grid;
+    grid-template-columns: 39rem 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  @media (min-width: 1440px) {
+    zoom: 0.6;
+  }
 
   &::-webkit-scrollbar {
     width: 1rem;
@@ -27,6 +46,10 @@ export const Container = styled.div`
     margin: 2rem;
     display: flex;
     justify-content: space-between;
+    @media (min-width: 768px) {
+      zoom: 1.4;
+      max-width: 35rem;
+    }
   }
 
   > :nth-child(2) {
@@ -60,18 +83,33 @@ export const Button = styled.button`
 export const Main = styled.div`
   position: relative;
   padding: 1rem 2rem;
-  height: 45vh;
+  height: 23rem;
   display: flex;
   color: white;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
 
+  @media (min-width: 768px) {
+    margin-left: 2rem;
+
+    grid-column: 1/2;
+    width: 35rem;
+    height: auto;
+    padding: 20rem 0 0 0;
+    align-items: center;
+  }
+
   .top {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (min-width: 768px) {
+      flex-direction: column;
+      zoom: 1.2;
+    }
 
     h1 {
       font-size: 3.2rem;
@@ -86,6 +124,11 @@ export const Main = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    @media (min-width: 768px) {
+      flex-direction: row;
+      zoom: 1.2;
+      gap: 0.8rem;
+    }
   }
 `
 
@@ -97,6 +140,12 @@ export const Img = styled.img`
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
+
+  @media (min-width: 768px) {
+    width: 30rem;
+    height: 30rem;
+    bottom: 16rem;
+  }
 `
 
 export const Img2 = styled.img`
@@ -107,6 +156,16 @@ export const Img2 = styled.img`
   width: 7rem;
   height: 7rem;
   pointer-events: none;
+
+  @media (min-width: 425px) {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 13rem;
+    height: 13rem;
+  }
 `
 
 export const Type = styled.div`
@@ -121,7 +180,7 @@ export const Type = styled.div`
 `
 export const DetailsWrapper = styled.div`
   width: 100vw;
-  height: 25rem;
+  height: calc(100vh - 23rem);
   padding: 2rem 3rem 3rem;
 
   background: ${({ theme }) => theme.bg.primary};
@@ -132,9 +191,23 @@ export const DetailsWrapper = styled.div`
   border-top-right-radius: 3rem;
   border-top-left-radius: 3rem;
 
+  @media (min-width: 768px) {
+    grid-column: 2/3;
+    grid-row: 1/3;
+    width: auto;
+    height: 100%;
+    border-radius: 0;
+    padding-top: 2.7rem;
+  }
+
   .buttons {
     display: flex;
     justify-content: space-between;
+
+    @media (min-width: 768px) {
+      zoom: 1.5;
+      justify-content: space-around;
+    }
 
     .button-wrapper {
       position: relative;
@@ -144,6 +217,10 @@ export const DetailsWrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (min-width: 768px) {
+        width: auto;
+      }
 
       .bar {
         position: absolute;
@@ -158,19 +235,35 @@ export const DetailsWrapper = styled.div`
   }
 
   .about {
+    @media (min-width: 768px) {
+      padding: 3rem 0;
+      gap: 5rem;
+    }
     .description {
       font-size: 1.2rem;
       line-height: 140%;
+      @media (min-width: 768px) {
+        font-size: 2rem;
+      }
     }
   }
 
   .stats {
+    @media (min-width: 768px) {
+      padding-top: 2rem;
+      zoom: 1.4;
+      gap: 2.5rem;
+    }
     .stat {
       width: 100%;
       display: flex;
       justify-content: space-between;
       font-size: 1.2rem;
       line-height: 140%;
+
+      @media (min-width: 910px) {
+        font-size: 1.5rem;
+      }
 
       .stat-wrapper {
         width: 80%;
@@ -187,6 +280,10 @@ export const DetailsWrapper = styled.div`
 
           width: 70%;
           height: 0.6rem;
+
+          @media (min-width: 910px) {
+            height: 1rem;
+          }
         }
       }
     }
@@ -197,19 +294,55 @@ export const DetailsWrapper = styled.div`
     margin-top: 1rem;
     gap: 3.5rem;
 
+    @media (min-width: 425px) {
+      padding: 0 3rem;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      margin-top: 4rem;
+      gap: 5rem;
+    }
+
     .evolution-wrapper {
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 3rem;
       font-size: 1.4rem;
 
-      .pokemon-wrapper {
-        width: 8rem;
-        position: relative;
-        padding-top: 3.8rem;
-        padding-left: 0.5rem;
-        text-align: center;
+      @media (min-width: 768px) {
+        font-size: 2rem;
+        & > :nth-child(2) {
+          margin-top: 2rem;
+          zoom: 1.3;
+        }
+      }
+
+      .has-multiple {
+        @media (min-width: 768px) {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+    .pokemon-wrapper {
+      width: 8rem;
+      position: relative;
+      padding-top: 3.8rem;
+      padding-left: 0.5rem;
+      text-align: center;
+
+      @media (min-width: 425px) {
+        padding-top: 6rem;
+      }
+
+      @media (min-width: 768px) {
+        padding-top: 10rem;
       }
     }
   }
@@ -250,6 +383,10 @@ export const Metrics = styled.div`
 
   display: flex;
   justify-content: space-between;
+
+  @media (min-width: 768px) {
+    zoom: 1.4;
+  }
 
   div {
     display: flex;
@@ -304,6 +441,12 @@ export const Select = styled.div`
   gap: 2rem;
   overflow: hidden scroll;
 
+  @media (min-width: 768px) {
+    width: 15rem;
+    height: 30rem;
+    padding-top: 6rem;
+  }
+
   div {
     display: flex;
     flex-direction: column;
@@ -312,6 +455,9 @@ export const Select = styled.div`
     span {
       position: absolute;
       top: 4rem;
+      @media (min-width: 768px) {
+        top: 10rem;
+      }
     }
   }
 

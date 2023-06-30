@@ -16,6 +16,7 @@ import { fetchPokemon } from '../../api/fetchPokemon'
 import { fetchFamily } from '../../api/fetchFamily'
 import { formatString } from '../../utils/formatString'
 import { formatId } from '../../utils/formatId'
+import { ClearIcon } from '../common/ClearIcon'
 
 export const PokeInfo = ({ info, isOpen }) => {
   const favoritesContext = useContext(FavContext)
@@ -31,6 +32,20 @@ export const PokeInfo = ({ info, isOpen }) => {
   const [pokemon, setPokemon] = useState({})
   const [stats, setStats] = useState([])
   const [evolutions, setEvolutions] = useState(null)
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const loadIsFavorite = () =>
     setIsFavorite(!!favoritesContext.favorites.includes(name))
@@ -146,7 +161,7 @@ export const PokeInfo = ({ info, isOpen }) => {
     <S.Container bg={bgColors[type]}>
       <div className="top-buttons">
         <S.Button onClick={handleClosePokeInfo}>
-          <ArrowIcon2 fill={'white'} />
+          {windowWidth > 768 ? <ClearIcon /> : <ArrowIcon2 fill={'white'} />}
         </S.Button>
 
         <S.Button onClick={handleIsFavorite}>
@@ -265,6 +280,19 @@ export const PokeInfo = ({ info, isOpen }) => {
     </S.Container>
   )
 }
+const pokemonWrapper = (pokemon) => {
+  return (
+    <div className="pokemon-wrapper" key={pokemon.name}>
+      <S.Img2
+        src={
+          pokemon.sprites.other.home.front_default ||
+          pokemon.sprites.front_default
+        }
+      />
+      <span>{formatString(pokemon.name)}</span>
+    </div>
+  )
+}
 
 const renderEvolutions = (evolutions) => {
   const initial = evolutions[0]
@@ -281,7 +309,9 @@ const renderEvolutions = (evolutions) => {
         style={{ height: `${!final ? '20vh' : 'auto'}` }}
       >
         {pokemonWrapper(initial.data)}
-        <ArrowIcon />
+        <span className={!mediumHasMultiple ? '' : 'has-multiple'}>
+          <ArrowIcon />
+        </span>
 
         {!mediumHasMultiple ? (
           pokemonWrapper(medium.data)
@@ -292,7 +322,9 @@ const renderEvolutions = (evolutions) => {
       {final && (
         <div style={{ alignItems: 'flex-start' }} className="evolution-wrapper">
           {pokemonWrapper(medium.data)}
-          <ArrowIcon />
+          <span className={!finalHasMultiple ? '' : 'has-multiple'}>
+            <ArrowIcon />
+          </span>
           {!finalHasMultiple ? (
             pokemonWrapper(final.data)
           ) : (
@@ -306,20 +338,6 @@ const renderEvolutions = (evolutions) => {
   )
 }
 
-const pokemonWrapper = (pokemon) => {
-  return (
-    <div className="pokemon-wrapper" key={pokemon.name}>
-      <S.Img2
-        src={
-          pokemon.sprites.other.home.front_default ||
-          pokemon.sprites.front_default
-        }
-      />
-      <span>{formatString(pokemon.name)}</span>
-    </div>
-  )
-}
-
 const MultipleWrapper = ({ evolutions }) => {
   const [openSel, setOpenSel] = useState(false)
 
@@ -329,6 +347,7 @@ const MultipleWrapper = ({ evolutions }) => {
     <>
       <button
         style={{
+          cursor: 'pointer',
           background: 'none',
           border: 'none',
           zIndex: '999',
