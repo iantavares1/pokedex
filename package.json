@@ -17,9 +17,11 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "latest",
+    "eslint": "^8.46.0",
     "typescript": "latest",
     "vite": "latest"
   }
