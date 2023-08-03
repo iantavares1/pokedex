@@ -32,7 +32,7 @@ export const PokeCard = (props: PokeCardProps) => {
             left: '-2.5rem',
             width: '150%',
             height: '150%',
-            opacity: 0.15,
+            opacity: 0.1,
           }}
         />
         <Info>
