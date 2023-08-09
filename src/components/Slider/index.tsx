@@ -13,14 +13,27 @@ import { backgroundColors } from '../../utils/pokemon/backgroundColors'
 import { formatString } from '../../utils/functions/formatString'
 
 const Container = styled.div`
-  margin: 0.8rem 0 1.4rem;
+  margin: 0.8rem 0 1.2rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
+  user-select: none;
+
+  button {
+    all: unset;
+    cursor: pointer;
+  }
 
   & > button:first-of-type,
   & > button:last-of-type {
     display: none;
+  }
+
+  @media (min-width: 768px) {
+    & > button:first-of-type,
+    & > button:last-of-type {
+      display: block;
+    }
   }
 `
 
@@ -30,14 +43,18 @@ const SliderBar = styled.div`
 
   overflow: scroll;
   scroll-behavior: smooth;
+
+  @media (min-width: 768px) {
+    overflow: hidden;
+  }
 `
 
 const TypeSpan = styled.span`
-  padding: 0.3rem 2rem;
+  padding: 0.2rem 1.4rem;
   border-radius: 99rem;
-  display: flex;
+  font-size: 1rem;
   color: white;
-  font-size: 1.2rem;
+  display: flex;
   cursor: pointer;
 `
 
@@ -59,7 +76,7 @@ export const Slider = ({ onSelect }: SliderProps) => {
   }
 
   return (
-    <Container>
+    <Container role="slider">
       <button onClick={() => handleSlider('previous')}>
         <ArrowBackIosNewOutlined sx={{ fontSize: 30 }} />
       </button>
@@ -67,6 +84,7 @@ export const Slider = ({ onSelect }: SliderProps) => {
       <SliderBar ref={sliderRef}>
         {Object.keys(backgroundColors).map((key) => (
           <TypeSpan
+            role="listitem"
             key={key}
             onClick={() => onSelect(key)}
             style={{

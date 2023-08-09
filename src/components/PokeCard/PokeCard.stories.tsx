@@ -11,6 +11,7 @@ const meta: Meta<typeof PokeCard> = {
           fontFamily: 'sans-serif',
           width: '13.5rem',
           marginTop: '2rem',
+          color: '#fff',
         }}
       >
         <Story />
@@ -23,30 +24,7 @@ export default meta
 
 type Story = StoryObj<typeof PokeCard>
 
-export const Example1: Story = {
-  render: () => (
-    <PokeCard
-      name="pikachu"
-      id={25}
-      type="electric"
-      imgUrl="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png"
-    />
-  ),
-}
-
-export const Example2: Story = {
-  render: () => (
-    <PokeCard
-      name="bulbasaur"
-      id={1}
-      type="grass"
-      secondaryType="poison"
-      imgUrl="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png"
-    />
-  ),
-}
-
-export const Example3: Story = {
+export const Charizard: Story = {
   render: () => (
     <PokeCard
       name="charizard"

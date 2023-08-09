@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { fetchPokemon } from '../api/fetchPokemon'
+import { fetchPokemon } from '../../../services/api/fetchPokemon'
 
 export function usePokemonNames() {
   const [pokemonNames, setPokemonNames] = useState<string[]>([])

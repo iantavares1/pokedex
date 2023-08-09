@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { pokemonTypes } from '../utils/pokemon/pokemonTypes'
+import { pokemonTypes } from '../../../utils/pokemon/pokemonTypes'
 
 export function useSearchType(searchValue: string) {
   const [type, setType] = useState<'all' | 'type' | 'pokemon'>('all')

@@ -1,6 +1,8 @@
-import { TypeIconProps } from '../../../../types/pokemon/TypeIconProps'
+type TypeIconProps = {
+  style?: React.CSSProperties
+}
 
-export const Normal = ({ style }: TypeIconProps) => {
+export const PokeBall = ({ style }: TypeIconProps) => {
   return (
     <svg
       style={style}

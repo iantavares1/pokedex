@@ -9,7 +9,6 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   height: 9rem;
   background: ${({ bg }) => bg};
-  color: #fff;
   border-radius: 1rem;
 
   display: flex;

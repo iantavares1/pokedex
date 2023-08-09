@@ -2,31 +2,33 @@ import { useRef, useState } from 'react'
 
 import styled from '@emotion/styled'
 
+import { Button } from '@mui/material'
 import { Search, Clear } from '@mui/icons-material'
 
 const Container = styled.div`
   position: relative;
-  height: 3.2rem;
+  min-height: 3.2rem;
   display: flex;
-
-  button {
-    all: unset;
-    cursor: pointer;
-    position: absolute;
-    z-index: 2;
-    top: 0.1rem;
-    left: 0.4rem;
-  }
+  width: 100%;
 `
 
-const Input = styled.input`
+const StyledButton = styled(Button)`
+  position: absolute;
+  z-index: 2;
+  min-width: fit-content;
+`
+
+const StyledInput = styled.input`
+  --padding-left: 3rem;
+
   all: unset;
   position: absolute;
-  width: calc(100% - 4.5rem);
+  width: calc(98.5% - var(--padding-left));
+  max-width: 25rem;
   padding: 0.5rem;
-  padding-left: 4rem;
+  padding-left: var(--padding-left);
   border-radius: 1rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
 
   &:focus {
     outline: 0.2rem solid #fff;
@@ -57,18 +59,17 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
   return (
     <Container>
-      {inputValue === '' ? (
-        <button>
-          <Search sx={{ fontSize: 30 }} />
-        </button>
-      ) : (
-        <button onClick={() => handleClearInput()}>
-          <Clear sx={{ fontSize: 30 }} />
-        </button>
+      {inputValue === '' && (
+        <StyledButton>
+          <Search sx={{ fontSize: 30, color: '#fff' }} />
+        </StyledButton>
       )}
-
-      <Input
-        type="text"
+      {inputValue !== '' && (
+        <StyledButton onClick={() => handleClearInput()}>
+          <Clear sx={{ fontSize: 30, color: '#fff' }} />
+        </StyledButton>
+      )}
+      <StyledInput
         placeholder="Search Pokémon"
         ref={inputRef}
         value={inputValue}

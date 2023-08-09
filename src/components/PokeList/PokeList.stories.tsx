@@ -1,18 +1,23 @@
 import { Meta, StoryObj } from '@storybook/react'
 
 import { PokeList } from '.'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '../../services/queryClient'
 
 const meta: Meta<typeof PokeList> = {
   component: PokeList,
   decorators: [
     (Story) => (
-      <div
-        style={{
-          fontFamily: 'sans-serif',
-        }}
-      >
-        <Story />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div
+          style={{
+            fontFamily: 'sans-serif',
+            color: '#fff',
+          }}
+        >
+          <Story />
+        </div>
+      </QueryClientProvider>
     ),
   ],
 }
@@ -21,10 +26,6 @@ export default meta
 
 type Story = StoryObj<typeof PokeList>
 
-export const Example1: Story = {
+export const Default: Story = {
   render: () => <PokeList searchValue="" />,
-}
-
-export const Example2: Story = {
-  render: () => <PokeList searchValue="fire" />,
 }

@@ -1,26 +1,47 @@
-import styled from '@emotion/styled'
+import { usePokeList } from './hooks/usePokeList'
 
-import { usePokeList } from '../../hooks/usePokeList'
+import { Skeleton } from '@mui/material'
 
-import { PokeCard } from '../PokeCard/index'
+import { Container } from '../common/Container'
 
-const Container = styled.div`
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
-  gap: 4rem 2rem;
-`
+import { PokeCard } from '../PokeCard'
+import { Message } from '../common/Message'
 
 type PokeListProps = {
   searchValue: string
 }
 
 export const PokeList = ({ searchValue }: PokeListProps) => {
-  const pokemonData = usePokeList(searchValue)
+  const { pokemons, isLoading } = usePokeList(searchValue)
+
+  if (isLoading) {
+    const skeletons = Array.from({ length: 150 }, (_, index) => (
+      <Skeleton
+        key={index}
+        variant="rounded"
+        sx={{
+          bgcolor: '#444',
+          borderRadius: '1rem',
+          width: '100%',
+          height: '9rem',
+        }}
+      />
+    ))
+
+    return <Container>{skeletons}</Container>
+  }
+
+  if (pokemons.length <= 0) {
+    return (
+      <Container display="flex">
+        <Message>Pokemon Not Found!</Message>
+      </Container>
+    )
+  }
 
   return (
     <Container>
-      {pokemonData.map(
+      {pokemons?.map(
         (pokemon) =>
           pokemon.id < 1000 && (
             <PokeCard

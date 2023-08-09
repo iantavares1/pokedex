@@ -8,6 +8,10 @@ const meta: Meta<typeof SearchBar> = {
     (Story) => (
       <div
         style={{
+          background: 'black',
+          color: 'white',
+          height: '100vh',
+          padding: '2rem',
           fontFamily: 'sans-serif',
         }}
       >
