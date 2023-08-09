@@ -14,7 +14,7 @@ describe('PokeCard', () => {
   it('should render correctly', () => {
     render(<PokeCard id={id} name={name} type={type} imgUrl={imgUrl} />)
 
-    const container = screen.getByTestId('container')
+    const container = screen.getByRole('listitem')
     const pokemonName = screen.getByText(/pikachu/i)
     const pokemonType = screen.getByText(/electric/i)
     const pokemonId = screen.getByText('#025')
