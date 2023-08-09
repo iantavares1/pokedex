@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Container, Img, Wrapper, Info } from './styles'
 
@@ -25,18 +25,10 @@ export const PokeCard = (props: PokeCardProps) => {
 
   const [pokeInfoIsOpen, setPokeInfoIsOpen] = useState(false)
 
-  useEffect(() => {
-    if (document.body.style.overflowY === 'hidden') {
-      document.body.style.overflowY = 'scroll'
-    } else {
-      document.body.style.overflowY = 'hidden'
-    }
-  }, [pokeInfoIsOpen])
-
   return (
     <>
       <Container
-        data-testid="container"
+        role="listitem"
         bg={backgroundColors[type]}
         onClick={() => setPokeInfoIsOpen(true)}
       >
