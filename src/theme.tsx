@@ -1,17 +1,17 @@
 import { createTheme } from '@mui/material/styles'
-import { red } from '@mui/material/colors'
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: '#556cd6',
-    },
-    secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
-    },
+    background: { default: '#222' },
+    text: { primary: '#fff' },
+  },
+  typography: {
+    fontFamily: ['Poppins', 'sans-serif'].join(','),
+    fontSize: 10,
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
   },
 })
 
