@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react'
 import styled from '@emotion/styled'
 import { Box, Typography } from '@mui/material'
 
@@ -6,11 +7,7 @@ const StyledBox = styled(Box)`
   justify-content: center;
 `
 
-type MessageProps = {
-  children: React.ReactNode
-}
-
-export const Message = ({ children }: MessageProps) => {
+export const Message = ({ children }: PropsWithChildren) => {
   return (
     <StyledBox>
       <Typography variant="h3">{children}</Typography>

@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react'
 import styled from '@emotion/styled'
 import { Container } from '@mui/material'
 
@@ -9,10 +10,6 @@ const StyledContainer = styled(Container)`
   align-items: center;
 `
 
-type HeaderProps = {
-  children: React.ReactNode
-}
-
-export const Header = ({ children }: HeaderProps) => {
+export const Header = ({ children }: PropsWithChildren) => {
   return <StyledContainer>{children}</StyledContainer>
 }

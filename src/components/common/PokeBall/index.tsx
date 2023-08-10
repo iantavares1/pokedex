@@ -1,10 +1,11 @@
-type TypeIconProps = {
+type PokeBallProps = {
   style?: React.CSSProperties
 }
 
-export const PokeBall = ({ style }: TypeIconProps) => {
+export const PokeBall = ({ style }: PokeBallProps) => {
   return (
     <svg
+      role="img"
       style={style}
       width="40"
       height="40"

@@ -1,6 +1,6 @@
+import { PropsWithChildren } from 'react'
 import styled from '@emotion/styled'
 import { Container } from '@mui/material'
-import { PropsWithChildren } from 'react'
 
 const StyledContainer = styled(Container)`
   min-height: 100vh;

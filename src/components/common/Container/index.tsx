@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react'
 import styled from '@emotion/styled'
 import MUIContainer from '@mui/material/Container'
 
@@ -11,10 +12,8 @@ const StyledContainer = styled(MUIContainer)`
 `
 
 type ContainerProps = {
-  children: React.ReactNode
   display?: 'flex' | 'grid'
-  style?: React.CSSProperties
-}
+} & HTMLAttributes<HTMLElement>
 
 export const Container = ({
   children,
