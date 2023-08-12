@@ -1,4 +1,4 @@
-import { usePokeList } from './hooks/usePokeList'
+import { usePokeList } from './usePokeList'
 
 import { Skeleton } from '@mui/material'
 
@@ -17,6 +17,7 @@ export const PokeList = ({ searchValue }: PokeListProps) => {
   if (isLoading) {
     const skeletons = Array.from({ length: 150 }, (_, index) => (
       <Skeleton
+        data-testid="skeleton"
         key={index}
         variant="rounded"
         sx={{
@@ -28,19 +29,19 @@ export const PokeList = ({ searchValue }: PokeListProps) => {
       />
     ))
 
-    return <Container>{skeletons}</Container>
+    return <Container role="list">{skeletons}</Container>
   }
 
   if (pokemons.length <= 0) {
     return (
-      <Container display="flex">
+      <Container role="list" display="flex">
         <Message>Pokemon Not Found!</Message>
       </Container>
     )
   }
 
   return (
-    <Container>
+    <Container role="list">
       {pokemons?.map(
         (pokemon) =>
           pokemon.id < 1000 && (

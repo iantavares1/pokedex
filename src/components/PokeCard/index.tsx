@@ -2,25 +2,16 @@ import { useState } from 'react'
 
 import { Container, Img, Wrapper, Info } from './styles'
 
-import PokemonType from '../../types/pokemon/PokemonType'
+import { PokemonProps } from '../../types/pokemon/PokemonProps'
 
 import { backgroundColors } from '../../utils/pokemon/backgroundColors'
 import { formatString } from '../../utils/functions/formatString'
 import { formatId } from '../../utils/functions/formatId'
 
-import { PokeInfo } from './PokeInfo'
+import { PokeInfo } from '../PokeInfo'
 import { PokeBall } from '../common/PokeBall'
 
-export type PokeCardProps = {
-  id: number
-  name: string
-  type: PokemonType
-  secondaryType?: PokemonType
-  imgUrl: string
-  secondaryImgUrl?: string
-}
-
-export const PokeCard = (props: PokeCardProps) => {
+export const PokeCard = (props: PokemonProps) => {
   const { id, name, type, secondaryType, imgUrl, secondaryImgUrl } = props
 
   const [pokeInfoIsOpen, setPokeInfoIsOpen] = useState(false)

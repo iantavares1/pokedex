@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { PokeCardProps } from '..'
+import { PokemonProps } from '../../types/pokemon/PokemonProps'
 import { PokeInfo } from '.'
 
 const meta: Meta<typeof PokeInfo> = {
@@ -11,7 +11,7 @@ export default meta
 
 type Story = StoryObj<typeof PokeInfo>
 
-const pokemonInfo: PokeCardProps = {
+const pokemonInfo: PokemonProps = {
   name: 'charizard',
   id: 6,
   type: 'fire',

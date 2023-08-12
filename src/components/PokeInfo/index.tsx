@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { FavoritesContext } from '../../../contexts/FavoritesContext'
+import { FavoritesContext } from '../../contexts/FavoritesContext'
 
-import { PokeCardProps } from '..'
+import { PokemonProps } from '../../types/pokemon/PokemonProps'
 
 import {
   ArrowBackIosNewSharp,
@@ -25,15 +25,15 @@ import {
   Metrics,
 } from './styles'
 
-import { backgroundColors } from '../../../utils/pokemon/backgroundColors'
-import { formatString } from '../../../utils/functions/formatString'
-import { formatId } from '../../../utils/functions/formatId'
-import { fetchPokemon } from '../../../services/api/fetchPokemon'
+import { backgroundColors } from '../../utils/pokemon/backgroundColors'
+import { formatString } from '../../utils/functions/formatString'
+import { formatId } from '../../utils/functions/formatId'
+import { fetchPokemon } from '../../services/api/fetchPokemon'
 import { Modal } from '@mui/material'
 
 type PokeInfoProps = {
   onOpen: React.Dispatch<React.SetStateAction<boolean>>
-  pokemonInfo: PokeCardProps
+  pokemonInfo: PokemonProps
 }
 
 export const PokeInfo = ({ onOpen, pokemonInfo }: PokeInfoProps) => {
