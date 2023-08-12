@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
 
 import { PokeCard } from '.'
 
@@ -18,7 +17,7 @@ describe('PokeCard', () => {
     const pokemonName = screen.getByText(/pikachu/i)
     const pokemonType = screen.getByText(/electric/i)
     const pokemonId = screen.getByText('#025')
-    const pokemonImg = screen.getByRole('img')
+    const pokemonImg = screen.getByAltText(name)
 
     expect(container).toBeVisible()
     expect(pokemonName).toBeVisible()

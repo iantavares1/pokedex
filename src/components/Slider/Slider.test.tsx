@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Slider } from '.'
 import { vi } from 'vitest'
 
@@ -9,15 +9,16 @@ describe('Slider', () => {
   it('should render correctly', () => {
     render(<Slider onSelect={onSelectMock} />)
     const slider = screen.getByRole('slider')
-
-    expect(slider).toBeInTheDocument()
-    expect(slider).toBeVisible()
-  })
-
-  it('should have one TypeSpan to each pokemon type, 18 at total', () => {
-    render(<Slider onSelect={onSelectMock} />)
     const typeSpans = screen.getAllByRole('listitem')
 
+    expect(slider).toBeInTheDocument()
     expect(typeSpans).toHaveLength(18)
+  })
+  it('should be able select type on slider', () => {
+    const { getByText } = render(<Slider onSelect={onSelectMock} />)
+    const typeSpan = getByText(/fire/i)
+
+    fireEvent.click(typeSpan, 'fire')
+    expect(onSelectMock).toHaveBeenCalledWith('fire')
   })
 })

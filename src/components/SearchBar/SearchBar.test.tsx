@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
+
 import { SearchBar } from '.'
-// import userEvent from '@testing-library/user-event'
 
 const onSearchMock = vi.fn()
 
@@ -15,13 +15,12 @@ describe('SearchBar', () => {
     expect(input).toBeInTheDocument()
     expect(button).toBeInTheDocument()
   })
+  it('should be able interact with the input', () => {
+    render(<SearchBar onSearch={onSearchMock} />)
+    const input = screen.getByPlaceholderText(/search pokémon/i)
 
-  // it('should be able interact with the input', () => {
-  //   render(<SearchBar onSearch={onSearchMock} />)
-  //   const input = screen.getByPlaceholderText(/search pokémon/i)
+    fireEvent.change(input, { target: { value: 'pikachu' } })
 
-  //   userEvent.type(input, 'Pikachu')
-
-  //   expect(onSearchMock).toHaveBeenCalledWith('Pikachu')
-  // })
+    expect(onSearchMock).toHaveBeenCalledWith('pikachu')
+  })
 })

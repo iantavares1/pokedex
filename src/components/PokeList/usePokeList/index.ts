@@ -1,11 +1,12 @@
 import { Pokemon } from '../../../types/pokemon/Pokemon'
 
-import { usePokemonNames } from './usePokemonNames'
-import { useSearchType } from './useSearchType'
+import { useQuery } from '@tanstack/react-query'
+
+import { usePokemonNames } from '../usePokemonNames'
+import { useSearchType } from '../useSearchType'
 
 import { fetchPokemon } from '../../../services/api/fetchPokemon'
 import { fetchType } from '../../../services/api/fetchType'
-import { useQuery } from '@tanstack/react-query'
 
 export function usePokeList(searchValue: string) {
   const pokemonNames = usePokemonNames()
