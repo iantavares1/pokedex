@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { FavoritesContext } from '../../contexts/FavoritesContext'
+import { usePokeInfo } from './usePokeInfo'
 
 import { PokemonProps } from '../../types/pokemon/PokemonProps'
 
+import { Modal } from '@mui/material'
 import {
   ArrowBackIosNewSharp,
   Favorite,
@@ -28,8 +29,6 @@ import {
 import { backgroundColors } from '../../utils/pokemon/backgroundColors'
 import { formatString } from '../../utils/functions/formatString'
 import { formatId } from '../../utils/functions/formatId'
-import { fetchPokemon } from '../../services/api/fetchPokemon'
-import { Modal } from '@mui/material'
 
 type PokeInfoProps = {
   onOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -37,67 +36,15 @@ type PokeInfoProps = {
 }
 
 export const PokeInfo = ({ onOpen, pokemonInfo }: PokeInfoProps) => {
-  const { favorites, updateFavorites } = useContext(FavoritesContext)
   const { name, id, type, imgUrl, secondaryImgUrl, secondaryType } = pokemonInfo
-
-  const [description, setDescription] = useState('')
-  const [pokemon, setPokemon] = useState<{
-    stats: {
-      base_stat: number
-      stat: {
-        name: string
-      }
-    }[]
-
-    height: number
-    weight: number
-  } | null>(null)
+  const { favorites, updateFavorites, description, pokemon } = usePokeInfo(
+    name,
+    id,
+  )
   const [section, setSection] = useState(0)
 
-  useEffect(() => {
-    const cleanUpDescription = (description: string) =>
-      description
-        .replaceAll('\n', ' ')
-        .replaceAll('\f', ' ')
-        .replaceAll(name.toUpperCase(), formatString(name))
-        .replaceAll('POKéMON', 'pokémon')
-
-    const getDescription = async () => {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon-species/${id}`,
-      )
-      const data = await response.json()
-      if (data.flavor_text_entries.length > 0) {
-        const pokemonDescription = data.flavor_text_entries.filter(
-          (flavorText: { language: { name: string } }) =>
-            flavorText.language.name === 'en',
-        )
-        const selectedDesc = pokemonDescription.filter(
-          (flavorText: { flavor_text: string }) =>
-            flavorText.flavor_text.includes(name.toUpperCase()),
-        )
-        setDescription(
-          cleanUpDescription(
-            selectedDesc.length > 0
-              ? selectedDesc[0].flavor_text
-              : pokemonDescription[0].flavor_text,
-          ),
-        )
-      }
-    }
-    getDescription()
-  }, [id, name])
-
-  useEffect(() => {
-    const getPokemon = async () => {
-      const response = await fetchPokemon(name)
-      setPokemon(response)
-    }
-    getPokemon()
-  }, [name])
-
   return (
-    <Modal open={true}>
+    <Modal open>
       <Container bg={backgroundColors[type]}>
         <Header>
           <Button onClick={() => onOpen(false)}>
