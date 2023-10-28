@@ -20,8 +20,8 @@ const pokemonInfo: PokemonProps = {
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/6.png',
 }
 
-const onOpen = () => console.log('PokeInfo')
+const onClose = () => console.log('PokeInfo')
 
 export const Default: Story = {
-  render: () => <PokeInfo pokemonInfo={pokemonInfo} onOpen={onOpen} />,
+  render: () => <PokeInfo pokemonInfo={pokemonInfo} onClose={onClose} open />,
 }
