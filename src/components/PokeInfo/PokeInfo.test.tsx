@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom'
-import { fireEvent, render } from '@testing-library/react'
-import { vi } from 'vitest'
+import { render } from '@testing-library/react'
 
 import { PokemonProps } from '../../types/pokemon/PokemonProps'
 import { PokeInfo } from '.'
@@ -18,7 +17,11 @@ describe('PokeInfo', () => {
     const { imgUrl } = pokemonInfo
 
     const { getByText, getByAltText } = render(
-      <PokeInfo onOpen={() => 0} pokemonInfo={pokemonInfo} />,
+      <PokeInfo
+        onClose={() => console.log('')}
+        open
+        pokemonInfo={pokemonInfo}
+      />,
     )
 
     expect(getByText('#004')).toBeInTheDocument()
@@ -27,17 +30,5 @@ describe('PokeInfo', () => {
 
     expect(getByAltText(/charmander/i)).toBeInTheDocument()
     expect(getByAltText(/charmander/i)).toHaveAttribute('src', imgUrl)
-  })
-  it('should be able to call onOpen function at button click', () => {
-    const onOpenMock = vi.fn()
-
-    const { getAllByRole } = render(
-      <PokeInfo onOpen={onOpenMock} pokemonInfo={pokemonInfo} />,
-    )
-
-    const button = getAllByRole('button')[0]
-    fireEvent.click(button)
-
-    expect(onOpenMock).toHaveBeenCalled()
   })
 })
