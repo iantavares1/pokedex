@@ -31,11 +31,12 @@ import { formatString } from '../../utils/functions/formatString'
 import { formatId } from '../../utils/functions/formatId'
 
 type PokeInfoProps = {
-  onOpen: React.Dispatch<React.SetStateAction<boolean>>
+  open: boolean
+  onClose: () => void
   pokemonInfo: PokemonProps
 }
 
-export const PokeInfo = ({ onOpen, pokemonInfo }: PokeInfoProps) => {
+export const PokeInfo = ({ open, onClose, pokemonInfo }: PokeInfoProps) => {
   const { name, id, type, imgUrl, secondaryImgUrl, secondaryType } = pokemonInfo
   const { favorites, updateFavorites, description, pokemon } = usePokeInfo(
     name,
@@ -44,10 +45,10 @@ export const PokeInfo = ({ onOpen, pokemonInfo }: PokeInfoProps) => {
   const [section, setSection] = useState(0)
 
   return (
-    <Modal open>
+    <Modal open={open} onClose={onClose} disableAutoFocus>
       <Container bg={backgroundColors[type]}>
         <Header>
-          <Button onClick={() => onOpen(false)}>
+          <Button onClick={onClose}>
             <ArrowBackIosNewSharp sx={{ fontSize: 30 }} />
           </Button>
           <Button onClick={() => updateFavorites(name)}>

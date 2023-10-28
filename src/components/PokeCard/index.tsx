@@ -45,9 +45,11 @@ export const PokeCard = (props: PokemonProps) => {
           </Info>
         </Wrapper>
       </Container>
-      {pokeInfoIsOpen && (
-        <PokeInfo onOpen={setPokeInfoIsOpen} pokemonInfo={props} />
-      )}
+      <PokeInfo
+        open={pokeInfoIsOpen}
+        onClose={() => setPokeInfoIsOpen(false)}
+        pokemonInfo={props}
+      />
     </>
   )
 }
