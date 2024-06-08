@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .slider button:first-of-type,
+  .slider button:last-of-type {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .slider button:first-of-type,
+  .slider button:last-of-type {
+    display: block;
+  }
+
+  .slider-bar {
+    overflow: hidden;
+  }
+}
+
+.bug-background {
+  background: linear-gradient(to right, #b3cc66, #8fb300);
+}
+
+.dark-background {
+  background: linear-gradient(to right, #595959, #333333);
+}
+
+.dragon-background {
+  background: linear-gradient(to right, #cc99ff, #9959b3);
+}
+
+.electric-background {
+  background: linear-gradient(to right, #ffcc66, #ff8000);
+}
+
+.fairy-background {
+  background: linear-gradient(to right, #ff99cc, #ff1a75);
+}
+
+.fighting-background {
+  background: linear-gradient(to right, #ff6666, #ff0000);
+}
+
+.fire-background {
+  background: linear-gradient(to right, #fc9754, #fc4f0f);
+}
+
+.flying-background {
+  background: linear-gradient(to right, #99ccff, #0088ff);
+}
+
+.ghost-background {
+  background: linear-gradient(to right, #a699cc, #664f88);
+}
+
+.grass-background {
+  background: linear-gradient(to right, #88cc66, #339900);
+}
+
+.ground-background {
+  background: linear-gradient(to right, #e6b800, #bf9000);
+}
+
+.ice-background {
+  background: linear-gradient(to right, #99e6ff, #0099ff);
+}
+
+.normal-background {
+  background: linear-gradient(to right, #a5a5a5, #757575);
+}
+
+.poison-background {
+  background: linear-gradient(to right, #b366b3, #993399);
+}
+
+.psychic-background {
+  background: linear-gradient(to right, #ff80df, #ff00bf);
+}
+
+.rock-background {
+  background: linear-gradient(to right, #ccae66, #997f00);
+}
+
+.steel-background {
+  background: linear-gradient(to right, #cccccc, #999999);
+}
+
+.water-background {
+  background: linear-gradient(to right, #3385ff, #0047b3);
+}
