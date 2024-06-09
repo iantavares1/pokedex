@@ -2,10 +2,11 @@
 
 import { useRef } from "react"
 
+import { PokemonTypeName } from "@/types"
 import { formatString, pokemonTypes } from "@/utils"
 
 type SliderProps = {
-  onSelect: (awawd: string) => void
+  onSelect: (type: PokemonTypeName) => void
 }
 
 export function Slider({ onSelect }: SliderProps) {

@@ -2,17 +2,51 @@
 
 import { PokemonProps } from "@/types"
 import { formatId, formatString } from "@/utils"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export function Card({ id, imgPaths, name, types }: PokemonProps) {
-  const [pokeInfoIsOpen, setPokeInfoIsOpen] = useState(false)
+export function Card(props: PokemonProps) {
+  const { id, imgPaths, name, types } = props
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden"
+
+      const handleEsc = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          setOpen(false)
+        }
+      }
+
+      window.addEventListener("keydown", handleEsc)
+
+      return () => {
+        document.body.style.overflow = ""
+        window.removeEventListener("keydown", handleEsc)
+      }
+    } else {
+      document.body.style.overflow = ""
+    }
+  }, [open])
 
   return (
     <>
       {types[0] && (
         <div
           className={`${types[0]}-background relative flex h-36 w-full cursor-pointer select-none flex-col items-center rounded-2xl`}
-          onClick={() => setPokeInfoIsOpen(true)}
+          onClick={() => setOpen(true)}
         >
           <img
             src={imgPaths[0] || imgPaths[1]}
@@ -50,11 +84,7 @@ export function Card({ id, imgPaths, name, types }: PokemonProps) {
         </div>
       )}
 
-      {/* <PokeInfo
-        open={pokeInfoIsOpen}
-        onClose={() => setPokeInfoIsOpen(false)}
-        pokemonInfo={props}
-      /> */}
+      {/* {open && <InfoModal onClose={() => setOpen(false)} pokemon={props} />} */}
     </>
   )
 }

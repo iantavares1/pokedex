@@ -1,4 +1,6 @@
-export const pokemonTypes = [
+import { PokemonTypeName } from "@/types"
+
+export const pokemonTypes: PokemonTypeName[] = [
   "bug",
   "dark",
   "dragon",
@@ -17,4 +19,4 @@ export const pokemonTypes = [
   "rock",
   "steel",
   "water",
-]
+] as const

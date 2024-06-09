@@ -1,7 +1,9 @@
-import { usePokemonsWithUrl } from "@/contexts"
-import { Pokemon, PokemonProps } from "@/types"
+import { usePokemonsByType, useUseAllPokemons } from "@/hooks"
+import { Pokemon, PokemonProps, PokemonTypeName } from "@/types"
 import { isPokemon, pokemonTypes } from "@/utils"
 import { useQueries } from "@tanstack/react-query"
+
+const DEFAULT_POKEMON_QUANTITY = 150
 
 export function useList(search: string) {
   const searchType =
@@ -11,11 +13,21 @@ export function useList(search: string) {
         ? "byType"
         : "byName"
 
-  const pokemonsWithUrl = usePokemonsWithUrl()
+  const { allPokemons } = useUseAllPokemons()
+  const { pokemonsByType } = usePokemonsByType(search as PokemonTypeName)
 
-  const { data: pokemons, pending } = useQueries({
+  const pokemonsWithUrl =
+    searchType === "all"
+      ? allPokemons
+      : searchType === "byType"
+        ? pokemonsByType
+        : allPokemons.filter(
+            ({ name }) => name === search || name.includes(search),
+          )
+
+  const { data: pokemons, pending: pending } = useQueries({
     queries: pokemonsWithUrl.slice(0, 100).map(({ url }) => ({
-      queryKey: ["pokemons", url, pokemonsWithUrl],
+      queryKey: ["pokemons", url],
       queryFn: async () => {
         const response = await fetch(url)
         const data = await response.json()
@@ -47,63 +59,8 @@ export function useList(search: string) {
     },
   })
 
-  async function fetchPokemonTypeName(
-    type: string,
-  ): Promise<Pokemon[] | undefined> {
-    try {
-      const url = `https://pokeapi.co/api/v2/type/${type}`
-
-      const response = await fetch(url)
-      const data = await response.json()
-
-      return data.pokemons
-    } catch (error) {
-      console.log(`Error: ${error}`)
-    }
-  }
-
-  // const fetchAllPokemons = async () => {
-  //   if (!PokemonWithUrl) return null
-
-  //   const response = await Promise.all(
-  //     PokemonWithUrl.map(({ name }: { name: string }) => fetchPokemon(name)),
-  //   )
-
-  //   const data = response.flatMap((item) =>
-  //     item?.filter((item) => item !== undefined),
-  //   )
-
-  //   return data
-  // }
-
-  // const fetchPokemonByType: Promise<Pokemon[] | null> = async () => {
-  //   const pokemons = await fetchPokemonTypeName(search)
-
-  //   if (pokemons) {
-  //     return pokemons.map(({ name }) => fetchPokemon(name))
-  //   } else undefined
-  //   // return Promise.all(pokemons.map(({ name }) => fetchPokemon(name))).then(
-  //   //   (res) =>
-  //   //     res.some((item) => !item) ? undefined : res.map((item) => item && item),
-  //   // )
-  // }
-
-  // const fetchPokemonByName: Promise<Pokemon[] | null> = async () => {
-  //   if (!pokemonNames) return null
-
-  //   const names = pokemonNames.filter((name) => name.includes(search))
-  //   return Promise.all(names.map((name) => fetchPokemon(name)))
-  // }
-
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["pokemons", searchType],
-  //   queryFn: () => fetchAllPokemons(),
-  // })
-
-  // const pokemons = data
-
   const skeletons = pending.some((item) => item)
-    ? Array.from({ length: 150 }, (_, index) => index)
+    ? Array.from({ length: DEFAULT_POKEMON_QUANTITY }, (_, index) => index)
     : null
 
   return { pokemons, skeletons }
