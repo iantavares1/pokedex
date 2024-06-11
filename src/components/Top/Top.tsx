@@ -3,8 +3,6 @@
 import { usePathname, useRouter } from "next/navigation"
 
 export function Top() {
-  function setSearchValue(awd: string) {}
-
   const router = useRouter()
   const pathname = usePathname()
 
@@ -18,7 +16,7 @@ export function Top() {
         />
       </button>
 
-      <h1 className="pointer-events-none text-4xl font-semibold leading-none">
+      <h1 className="pointer-events-none text-[2rem] font-semibold leading-none">
         Pokedex
       </h1>
 
