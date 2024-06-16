@@ -1,104 +1,55 @@
-import { useRef } from 'react'
+"use client"
 
-import styled from '@emotion/styled'
-
-import {
-  ArrowBackIosNewOutlined,
-  ArrowForwardIosOutlined,
-} from '@mui/icons-material'
-
-import PokemonType from '../../types/pokemon/PokemonType'
-
-import { backgroundColors } from '../../utils/pokemon/backgroundColors'
-import { formatString } from '../../utils/functions/formatString'
-
-const Container = styled.div`
-  margin: 0.8rem 0 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  user-select: none;
-
-  button {
-    all: unset;
-    cursor: pointer;
-  }
-
-  & > button:first-of-type,
-  & > button:last-of-type {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    & > button:first-of-type,
-    & > button:last-of-type {
-      display: block;
-    }
-  }
-`
-
-const SliderBar = styled.div`
-  display: flex;
-  gap: 1.2rem;
-
-  overflow: scroll;
-  scroll-behavior: smooth;
-
-  @media (min-width: 768px) {
-    overflow: hidden;
-  }
-`
-
-const TypeSpan = styled.span`
-  padding: 0.2rem 1.4rem;
-  border-radius: 99rem;
-  font-size: 1rem;
-  color: white;
-  display: flex;
-  cursor: pointer;
-`
+import { PokemonTypeName } from "@/types"
+import { formatString, pokemonTypes } from "@/utils"
+import Image from "next/image"
+import { useSlider } from "./hooks"
 
 type SliderProps = {
-  onSelect: React.Dispatch<React.SetStateAction<string>>
+  onSelect: (type: PokemonTypeName) => void
 }
 
-export const Slider = ({ onSelect }: SliderProps) => {
-  const sliderRef = useRef<HTMLDivElement>(null)
-
-  const handleSlider = (direction: 'previous' | 'next') => {
-    const slider = sliderRef.current
-
-    if (slider) {
-      const width = 300
-      const scrollAmount = direction === 'next' ? width : -width
-      slider.scrollLeft += scrollAmount
-    }
-  }
+export function Slider({ onSelect }: SliderProps) {
+  const { sliderRef, handleSlideToPrevious, handleSlideToNext } = useSlider()
 
   return (
-    <Container role="slider">
-      <button onClick={() => handleSlider('previous')}>
-        <ArrowBackIosNewOutlined sx={{ fontSize: 30 }} />
+    <div className="slider mx-2 my-3 flex w-full select-none items-center gap-4">
+      <button className="slider-button" onClick={handleSlideToPrevious}>
+        <Image
+          className="min-h-12 min-w-12"
+          width={0}
+          height={0}
+          sizes="100"
+          src="arrow-left.svg"
+          alt="Previous"
+        />
       </button>
 
-      <SliderBar ref={sliderRef}>
-        {Object.keys(backgroundColors).map((key) => (
-          <TypeSpan
-            role="listitem"
+      <div
+        ref={sliderRef}
+        className="slider-bar flex gap-4 overflow-x-scroll scroll-smooth"
+      >
+        {pokemonTypes.map((key) => (
+          <div
             key={key}
+            className={`${key}-background text-md semibold flex cursor-pointer rounded-full px-6 py-1 font-medium`}
             onClick={() => onSelect(key)}
-            style={{
-              background: `${backgroundColors[key as PokemonType]}`,
-            }}
           >
             {formatString(key)}
-          </TypeSpan>
+          </div>
         ))}
-      </SliderBar>
+      </div>
 
-      <button onClick={() => handleSlider('next')}>
-        <ArrowForwardIosOutlined sx={{ fontSize: 30 }} />
+      <button className="slider-button" onClick={handleSlideToNext}>
+        <Image
+          className="min-h-12 min-w-12"
+          width={0}
+          height={0}
+          sizes="100"
+          src="arrow-right.svg"
+          alt="Next"
+        />
       </button>
-    </Container>
+    </div>
   )
 }
