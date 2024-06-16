@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import { SearchBarProps } from "../SearchBar"
+import { SearchBarProps } from ".."
 
 export function useSearchBar(onSearch: SearchBarProps["onSearch"]) {
   const [searchValue, setSearchValue] = useState("")

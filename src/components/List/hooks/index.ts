@@ -27,7 +27,10 @@ export function useList(search: string) {
   const { pokemons, pending } = usePokemons(pokemonsWithUrl, 100)
 
   const skeletons = pending.some((item) => item)
-    ? Array.from({ length: DEFAULT_POKEMON_QUANTITY }, (_, index) => index)
+    ? Array.from(
+        { length: searchType === "byType" ? 20 : DEFAULT_POKEMON_QUANTITY },
+        (_, index) => index,
+      )
     : null
 
   return { pokemons, skeletons }

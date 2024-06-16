@@ -1,6 +1,7 @@
 "use client"
 
-import { useSearchBar } from "./hooks/useSearchBar"
+import { ButtonHTMLAttributes } from "react"
+import { useSearchBar } from "./hooks"
 
 export interface SearchBarProps {
   onSearch: (searchValue: string) => void
@@ -13,18 +14,11 @@ export function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <div className="relative flex min-h-12 w-full">
       {searchValue === "" && (
-        <button className="absolute left-2 top-1/2 z-20 h-8 w-8 -translate-y-1/2">
-          <img className="h-full w-full" src="search.svg" alt="Search" />
-        </button>
+        <IconButton iconName="search" style={{ pointerEvents: "none" }} />
       )}
 
       {searchValue !== "" && (
-        <button
-          className="absolute left-2 top-1/2 z-20 h-8 w-8 -translate-y-1/2"
-          onClick={handleClearSearch}
-        >
-          <img className="h-full w-full" src="clear.svg" alt="Clear" />
-        </button>
+        <IconButton iconName="clear" onClick={handleClearSearch} />
       )}
 
       <input
@@ -35,5 +29,21 @@ export function SearchBar({ onSearch }: SearchBarProps) {
         onChange={({ target }) => handleChangeSearchValue(target.value)}
       />
     </div>
+  )
+}
+
+function IconButton<T>({
+  iconName,
+  ...props
+}: {
+  iconName: string
+} & ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      className="absolute left-2 top-1/2 z-20 h-8 w-8 -translate-y-1/2"
+      {...props}
+    >
+      <img className="h-full w-full" src={`${iconName}.svg`} alt={iconName} />
+    </button>
   )
 }

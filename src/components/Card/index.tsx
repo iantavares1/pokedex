@@ -2,8 +2,8 @@
 
 import { PokemonProps } from "@/types"
 import { formatId, formatString } from "@/utils"
-import { InfoModal } from "./InfoModal/InfoModal"
-import { useCard } from "./hooks/useCard"
+import { InfoModal } from "./InfoModal"
+import { useCard } from "./hooks"
 
 export function Card(props: PokemonProps) {
   const { id, imgPaths, name, types } = props

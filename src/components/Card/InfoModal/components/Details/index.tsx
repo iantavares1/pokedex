@@ -2,7 +2,8 @@
 
 import { PokemonProps } from "@/types"
 import { formatString } from "@/utils"
-import { useDetails } from "./hooks/useDetails"
+import { CSSProperties } from "react"
+import { useDetails } from "./hooks"
 
 export function Details({ pokemon }: { pokemon: PokemonProps }) {
   const { details, section, description, handleChangeSection } = useDetails(
@@ -12,8 +13,8 @@ export function Details({ pokemon }: { pokemon: PokemonProps }) {
 
   return (
     details && (
-      <div className="relative mt-28 flex h-full w-screen flex-col gap-8 rounded-t-3xl bg-black p-8">
-        <div className="absolute -top-36 left-1/2 z-[999] h-40 -translate-x-1/2">
+      <div className="relative mt-28 flex h-full w-screen flex-col gap-8 rounded-t-3xl bg-black p-8 xsHeight:mt-16 xsHeight:gap-6 md:m-0 md:flex-1 md:gap-6 md:rounded-none">
+        <div className="absolute -top-36 left-1/2 z-[999] h-40 -translate-x-1/2 sm:-top-40 sm:h-48 md:-left-24 md:bottom-4 md:top-auto md:h-52">
           <img
             className="h-full w-full"
             src={pokemon.imgPaths[0] || pokemon.imgPaths[1]}
@@ -76,12 +77,16 @@ export function Details({ pokemon }: { pokemon: PokemonProps }) {
                   <div className={`absolute h-full w-full `} />
 
                   <div
-                    className={`h-full ${
+                    className={`h-full animate-grow ${
                       pokemon.types[0] !== "dark"
                         ? `${pokemon.types[0]}-background`
                         : "bg-[#808080]"
                     }`}
-                    style={{ width: `calc(${stat.base_stat}% * 0.5` }}
+                    style={
+                      {
+                        "--target-width": `calc(${stat.base_stat}% * 0.5`,
+                      } as CSSProperties
+                    }
                   />
                 </div>
               </div>

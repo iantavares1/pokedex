@@ -9,29 +9,31 @@ const FavoritesContext = createContext<FavoritesContextData>(
   {} as FavoritesContextData,
 )
 
-export function useFavorites() {
+export function useFavoritesContext() {
   return useContext(FavoritesContext)
 }
 
 const FAVORITES_KEY = "favorites"
 
-function getFavoritesFromLocalStorage() {
-  const favorites = localStorage.getItem(FAVORITES_KEY)
-  return favorites ? JSON.parse(favorites) : []
-}
+let initialFavorites: string[] = []
 
-const initialFavorites = getFavoritesFromLocalStorage()
+if (typeof window !== "undefined") {
+  const favorites = localStorage.getItem(FAVORITES_KEY)
+  initialFavorites = favorites ? JSON.parse(favorites) : []
+}
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [favorites, setFavorites] = useState<string[]>(initialFavorites)
 
   const updateFavorites = (name: string) =>
     setFavorites((prev) => {
+      if (!(typeof window !== "undefined")) return prev
+
       const newFavorites = prev.includes(name)
         ? prev.filter((favorite) => favorite !== name)
         : [...prev, name]
 
-      localStorage.setItem("favorites", JSON.stringify(FAVORITES_KEY))
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites))
       return newFavorites
     })
 

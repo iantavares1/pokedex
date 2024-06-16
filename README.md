@@ -4,12 +4,16 @@
 
 ## About
 
-<!-- <p>
-  Pokedex builded with NextJS, Material UI e emotion.
-  Além de uma página de favoritos, o projeto inclui
-  pesquisa por nome e tipo de cada pokémon disponível
-  na PokeAPI.
-</p> -->
+<p>
+  Pokedex built with NextJS and TypeScript. The project includes a favorites page and allows searching for pokemon by name and type.
+</p>
+
+## Tools
+
+- NextJS
+- TypeScript
+- TanStack Query
+- PokeAPI
 
 ## PokeAPI
 

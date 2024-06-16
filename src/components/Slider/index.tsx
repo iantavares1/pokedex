@@ -1,35 +1,21 @@
 "use client"
 
-import { useRef } from "react"
-
 import { PokemonTypeName } from "@/types"
 import { formatString, pokemonTypes } from "@/utils"
+import { useSlider } from "./hooks"
 
 type SliderProps = {
   onSelect: (type: PokemonTypeName) => void
 }
 
 export function Slider({ onSelect }: SliderProps) {
-  const sliderRef = useRef<HTMLDivElement>(null)
-
-  const handleSlider = (direction: "previous" | "next") => {
-    const slider = sliderRef.current
-
-    if (slider) {
-      const width = 300
-      const scrollAmount = direction === "next" ? width : -width
-      slider.scrollLeft += scrollAmount
-    }
-  }
+  const { sliderRef, handleSlideToPrevious, handleSlideToNext } = useSlider()
 
   return (
     <div className="slider mx-2 my-3 flex w-full select-none items-center gap-4">
-      <button
-        className="slider-button"
-        onClick={() => handleSlider("previous")}
-      >
+      <button className="slider-button" onClick={handleSlideToPrevious}>
         <img
-          className="min-h-10 min-w-10"
+          className="min-h-12 min-w-12"
           src="arrow-left.svg"
           alt="Previous"
         />
@@ -50,8 +36,8 @@ export function Slider({ onSelect }: SliderProps) {
         ))}
       </div>
 
-      <button className="slider-button" onClick={() => handleSlider("next")}>
-        <img className="min-h-10 min-w-10" src="arrow-right.svg" alt="Next" />
+      <button className="slider-button" onClick={handleSlideToNext}>
+        <img className="min-h-12 min-w-12" src="arrow-right.svg" alt="Next" />
       </button>
     </div>
   )

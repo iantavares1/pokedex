@@ -1,8 +1,6 @@
-"use client"
-
 import { Card } from "@/components"
 import { DetailedHTMLProps, HTMLAttributes } from "react"
-import { useList } from "./useList"
+import { useList } from "./hooks"
 
 export function List({ search }: { search: string }) {
   const { pokemons, skeletons } = useList(search)
@@ -33,5 +31,10 @@ export function List({ search }: { search: string }) {
 function ListWrapper(
   props?: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 ) {
-  return <div className="flex w-full flex-col gap-14" {...props} />
+  return (
+    <div
+      className="flex w-full flex-col gap-14 sm:grid sm:grid-cols-[repeat(auto-fill,minmax(13.5rem,1fr))]"
+      {...props}
+    />
+  )
 }

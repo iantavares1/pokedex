@@ -24,7 +24,7 @@ export function useCard() {
 
       const handleEsc = (event: KeyboardEvent) => {
         if (event.key === "Escape") {
-          setOpenModal(false)
+          handleCloseModal()
         }
       }
 
